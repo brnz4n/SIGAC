@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - LOGIN</title>
+    <link rel="shortcut icon" href="imagens/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <a href="index.html"><img src="imagens/favicon sigac ofc.png" class="logo-fixed"></a>
+   <div class="container" id="container">
+    <h1>Acesso ao SIGAC</h1>
+            <form action="/submit"method= 'post'>
+                <div class="input-group"><label for="matricula"></label>
+                    <div class="input-field">
+                    <input type="text" id="matricula" name="matricula" placeholder="Login" required>
+                    <i class='bx  bx-user'></i>
+                </div>
+                    <div class="input-group">
+                        <label for="senha"></label>
+                        <div class="input-field">
+                        <input type="password" name="senha" id="senha" placeholder="Senha"required>
+                        <i class='bx  bx-lock'></i>
+                    </div>
+
+                <div class="options">
+                    <label><input type="checkbox"name="remember"> Lembre-se de mim</label>
+                    <a href="pag01.html" class="forgot">Esqueci minha senha</a>
+                </div>
+
+                <button type="submit">Entrar</button>
+            </form> 
+            <p>Ainda não tem uma conta? <a href="pag02.html">Cadastre-se aqui</a></p>
+        </div>
+        <div class="slideshow-lateral">
+        </div>
+
+        <div class="slideshow-container">
+    <div class="slide fade">
+        <img src="imagens/faculdade1.png" alt="Faculdade 1">
+    </div>
+    <div class="slide fade">
+        <img src="imagens/faculdade2.jpg" alt="Faculdade 2">
+    </div>
+    <div class="slide fade">
+        <img src="imagens/faculdade3.png" alt="Faculdade 3">
+    </div>
+</div>
+
+</body>
+</html>
