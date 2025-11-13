@@ -1,4 +1,4 @@
-[![Página Inicial](https://github.com/brnz4n/SIGAC/blob/main/SIGAC.png?raw=true)
+![Página Inicial](https://github.com/brnz4n/SIGAC/blob/main/SIGAC.png?raw=true)
 
 
 SIGAC - Sistema de Gerenciamento Acadêmico
