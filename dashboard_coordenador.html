@@ -1,179 +1,405 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portal do Coordenador - SIGAC UFC</title>
-  <link rel="shortcut icon" href="imagens/favicon.png">
-  
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
-  
-  <link rel="stylesheet" href="dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Coordenador</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-    <div class="container-fluid">
-      
-      <a href="index.html">
-        <img src="imagens/favicon sigac ofc.png" class="navbar-logo">
-      </a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<body class="bg-light">
 
-      <div class="collapse navbar-collapse" id="menuPrincipal">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="#">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Alunos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Relatórios</a></li>
-        </ul>
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Meu Perfil</a></li>
-          <li class="nav-item"><a class="nav-link text-warning" href="#">Sair</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container mt-4">
-    <div class="row g-3">
-      <div class="col-md-6">
-        <div class="card text-center p-3">
-          <h5 class="card-title text-primary">Atividades Pendentes</h5>
-          <p class="display-6 fw-bold">15</p>
-          <p class="text-muted">atividades aguardando análise</p>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card text-center p-3">
-          <h5 class="card-title text-danger">Alunos com Horas Insuficientes</h5>
-          <p class="display-6 fw-bold">8</p>
-          <p class="text-muted">alunos precisam de mais horas</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-between align-items-center mt-4">
-      <button class="btn btn-success btn-lg">+ Adicionar Horas Manualmente</button>
-      <div class="w-50">
-        <input type="text" class="form-control" placeholder="Buscar Aluno...">
-      </div>
-    </div>
-
-    <div class="card mt-4">
-      <div class="card-header bg-secondary-custom text-white">
-        <h5 class="mb-0">Fila de Análise</h5>
-      </div>
-      <div class="card-body p-0">
-        <table class="table table-hover mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Nome do Aluno</th>
-              <th>Tipo de Atividade</th>
-              <th>Horas Solicitadas</th>
-              <th>Data da Submissão</th>
-              <th class="text-center">Situação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Maria Oliveira</td>
-              <td>Monitoria</td>
-              <td>10h</td>
-              <td>05/11/2025</td>
-              <td class="text-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <!-- Logo Branca -->
+                <img src="imagens/favicon sigac ofc.png" alt="Logo" height="60" style="filter: brightness(0) invert(1);">
+                <span class="fw-bold small d-none d-md-block">COORDENAÇÃO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCoord">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="menuCoord">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="#"><i class='bx bxs-dashboard'></i> Visão Geral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class='bx bxs-user-detail'></i> Alunos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class='bx bxs-report'></i> Relatórios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class='bx bxs-cog'></i> Configurações</a>
+                    </li>
+                </ul>
                 
-<button class="btn btn-sm btn-warning text-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#analiseModal"
-                        data-aluno="Maria Oliveira" data-atividade="Monitoria" data-horas="10h" data-data="05/11/2025" data-anexo="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
-                  Pendente
+                <div class="d-flex align-items-center gap-3 text-white">
+                    <div class="text-end d-none d-lg-block">
+                        <p class="mb-0 small fw-bold">Prof. Fernando</p>
+                        <p class="mb-0 small opacity-75" style="font-size: 0.75rem;">Coordenador Eng. Computação</p>
+                    </div>
+                    <a href="hero_section.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Sair</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5 pb-5">
+
+        <div class="row pt-4 mb-4 anime-start" style="transition-delay: 0.1s;">
+            <div class="col-md-8">
+                <h3 class="fw-bold text-dark mb-1">Painel de Análise</h3>
+                <p class="text-muted mb-0">Gerencie as solicitações pendentes e acompanhe o progresso dos discentes.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <button class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold">
+                    <i class='bx bx-plus'></i> Lançamento Manual
                 </button>
-              </td>
-            </tr>
-            <tr>
-              <td>João Silva</td>
-              <td>Extensão</td>
-              <td>8h</td>
-              <td>03/11/2025</td>
-              <td class="text-center">
+            </div>
+        </div>
+
+        <!-- Cards de Estatísticas -->
+        <div class="row g-4 mb-4 anime-start" style="transition-delay: 0.2s;">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm border-start border-4 border-warning h-100">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small fw-bold text-uppercase mb-1">Pendentes de Análise</p>
+                            <h2 class="display-6 fw-bold text-dark mb-0">15</h2>
+                        </div>
+                        <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-circle">
+                            <i class='bx bx-time-five fs-2'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm border-start border-4 border-danger h-100">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small fw-bold text-uppercase mb-1">Alunos em Risco</p>
+                            <h2 class="display-6 fw-bold text-dark mb-0">8</h2>
+                            <small class="text-danger" style="font-size: 0.75rem;">Horas insuficientes p/ colar grau</small>
+                        </div>
+                        <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle">
+                            <i class='bx bx-error-circle fs-2'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm border-start border-4 border-success h-100">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small fw-bold text-uppercase mb-1">Aprovados este mês</p>
+                            <h2 class="display-6 fw-bold text-dark mb-0">124</h2>
+                        </div>
+                        <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle">
+                            <i class='bx bx-check-double fs-2'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de Filtros -->
+        <div class="card border-0 shadow-sm mb-4 anime-start" style="transition-delay: 0.3s;">
+            <div class="card-body p-3">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class='bx bx-search'></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" placeholder="Buscar aluno...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Grupo: Todos</option>
+                            <option value="ensino">Ensino</option>
+                            <option value="pesquisa">Pesquisa</option>
+                            <option value="extensao">Extensão</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Status: Pendente</option>
+                            <option value="aprovado">Aprovado</option>
+                            <option value="rejeitado">Rejeitado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-primary w-100 fw-bold">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Análise -->
+        <div class="card border-0 shadow-sm mb-5 anime-start" style="transition-delay: 0.4s;">
+            <div class="card-header bg-white py-3 border-0">
+                <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-list-ul'></i> Fila de Solicitações</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Aluno</th>
+                            <th>Atividade (Grupo > Tipo)</th>
+                            <th>Carga Horária</th>
+                            <th>Data Submissão</th>
+                            <th class="text-center">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Item 1 -->
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-size: 0.8rem;">MO</div>
+                                    <div>
+                                        <div class="fw-bold text-dark">Maria Oliveira</div>
+                                        <div class="text-muted small">Mat: 493021</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-info text-dark bg-opacity-25 border border-info border-opacity-25 mb-1">Ensino</span>
+                                <div class="small fw-semibold">Monitoria</div>
+                            </td>
+                            <td class="fw-bold text-primary">60h</td>
+                            <td class="text-muted small">05/11/2025</td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#analiseModal"
+                                    data-aluno="Maria Oliveira"
+                                    data-grupo="Ensino"
+                                    data-tipo="Monitoria"
+                                    data-subtipo="Monitoria Voluntária"
+                                    data-descricao="Monitoria da disciplina de Algoritmos e Programação 1"
+                                    data-horas="60h"
+                                    data-data="05/11/2025"
+                                    data-acumulado="120"
+                                    data-limite="200"
+                                    data-anexo="#">
+                                    <i class='bx bx-search-alt'></i> Analisar
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Item 2 -->
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-size: 0.8rem;">JS</div>
+                                    <div>
+                                        <div class="fw-bold text-dark">João Silva</div>
+                                        <div class="text-muted small">Mat: 510233</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-warning text-dark bg-opacity-25 border border-warning border-opacity-25 mb-1">Extensão</span>
+                                <div class="small fw-semibold">Atividade Artístico-Cultural</div>
+                            </td>
+                            <td class="fw-bold text-primary">4h</td>
+                            <td class="text-muted small">03/11/2025</td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#analiseModal"
+                                    data-aluno="João Silva"
+                                    data-grupo="Extensão"
+                                    data-tipo="Atividade Artístico-Cultural"
+                                    data-subtipo="Espectador / Ouvinte"
+                                    data-descricao="Cinema: Filme 'A Rede Social'"
+                                    data-horas="4h"
+                                    data-data="03/11/2025"
+                                    data-acumulado="38"
+                                    data-limite="40"
+                                    data-anexo="#">
+                                    <i class='bx bx-search-alt'></i> Analisar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL DE ANÁLISE -->
+    <div class="modal fade" id="analiseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
                 
-<button class="btn btn-sm btn-warning text-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#analiseModal"
-                        data-aluno="João Silva" data-atividade="Extensão" data-horas="8h" data-data="03/11/2025" data-anexo="https://www.africau.edu/images/default/sample.pdf">
-                  Pendente
-                </button>
-              </td>
-            </tr>
-          </tbody>
-      </div>
+                <!-- Header -->
+                <div class="modal-header bg-primary text-white">
+                    <div>
+                        <h5 class="modal-title fw-bold" id="modalAlunoNome">Nome do Aluno</h5>
+                        <p class="mb-0 small opacity-75">Análise de Solicitação de Crédito</p>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    
+                    <div class="row g-4">
+                        
+                        <!-- Coluna Esquerda: Detalhes da Atividade -->
+                        <div class="col-md-7">
+                            <h6 class="fw-bold text-primary mb-3 text-uppercase small ls-1">Dados da Atividade</h6>
+                            
+                            <!-- Hierarquia Grupo > Tipo > Subtipo -->
+                            <div class="mb-3">
+                                <label class="small text-muted fw-bold">Classificação</label>
+                                <div class="bg-light p-2 rounded border d-flex align-items-center gap-2">
+                                    <span class="badge bg-secondary" id="modalGrupo">Grupo</span>
+                                    <i class='bx bx-chevron-right text-muted'></i>
+                                    <span class="fw-semibold text-dark" id="modalTipo">Tipo</span>
+                                    <i class='bx bx-chevron-right text-muted'></i>
+                                    <span class="small text-muted" id="modalSubtipo">Subtipo</span>
+                                </div>
+                            </div>
+
+                            <!-- Descrição -->
+                            <div class="mb-3">
+                                <label class="small text-muted fw-bold">Descrição / Título</label>
+                                <p class="fw-bold text-dark mb-0 fs-5" id="modalDescricao">Descrição aqui</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="small text-muted fw-bold">Data de Realização</label>
+                                    <p class="fw-semibold" id="modalData">--/--/----</p>
+                                </div>
+                                <div class="col-6">
+                                    <label class="small text-muted fw-bold">Carga Horária Solicitada</label>
+                                    <p class="fw-bold text-primary fs-5" id="modalHoras">0h</p>
+                                </div>
+                            </div>
+
+                            <!-- Botão Anexo -->
+                            <div class="mt-2">
+                                <a href="#" id="modalAnexo" target="_blank" class="btn btn-outline-secondary btn-sm w-100">
+                                    <i class='bx bxs-file-pdf'></i> Visualizar Certificado (Anexo)
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Validação e Limites -->
+                        <div class="col-md-5">
+                            <div class="card bg-light border-0 h-100">
+                                <div class="card-body">
+                                    <h6 class="fw-bold text-primary mb-3 text-uppercase small ls-1">Verificação de Limites</h6>
+                                    
+                                    <p class="small text-muted mb-2">Progresso do aluno neste Tipo de Atividade:</p>
+                                    
+                                    <!--Área de progresso-->
+                                    <div class="progress mb-2" style="height: 10px;">
+                                        <div id="modalProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 50%;"></div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between small fw-bold mb-4">
+                                        <span id="modalAcumuladoTexto">Acumulado: 0h</span>
+                                        <span id="modalLimiteTexto" class="text-danger">Limite: 0h</span>
+                                    </div>
+
+                                    <div class="alert alert-warning small border-0 d-flex gap-2" id="alertLimite">
+                                        <i class='bx bx-info-circle fs-4'></i>
+                                        <div>
+                                            <strong>Atenção:</strong> Verifique se a carga horária solicitada ultrapassa o limite permitido pela resolução.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 opacity-10">
+
+                    <!-- Área de Decisão -->
+                    <div>
+                        <h6 class="fw-bold text-dark mb-2">Parecer da Coordenação</h6>
+                        <textarea class="form-control mb-3" rows="2" placeholder="Digite uma justificativa (obrigatório em caso de indeferimento)..."></textarea>
+                        
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">
+                                <i class='bx bx-x'></i> Indeferir
+                            </button>
+                            <button type="button" class="btn btn-success px-4">
+                                <i class='bx bx-check'></i> Deferir e Creditar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  <footer class="py-4">
-  </footer>
 
-  <div class="modal fade" id="analiseModal" tabindex="-1" aria-labelledby="analiseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="analiseModalLabel">Analisar Atividade</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Aluno:</strong> <span id="modalAluno"></span></p>
-          <p><strong>Tipo de Atividade:</strong> <span id="modalAtividade"></span></p>
-          <p><strong>Horas Solicitadas:</strong> <span id="modalHoras"></span></p>
-          <p><strong>Data da Submissão:</strong> <span id="modalData"></span></p>
-          <p>
-            <strong>Anexo:</strong>
-            <a href="#" id="modalAnexo" target="_blank" class="btn btn-sm btn-outline-primary">Ver Anexo</a>
-            <small class="text-muted ms-2">(clique para abrir em nova aba)</small>
-          </p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end'));
+            }, 100);
 
-          <div class="mb-3 mt-4">
-            <label for="campoObservacao" class="form-label fw-bold">Observações do Coordenador (opcional):</label>
-            <textarea class="form-control" id="campoObservacao" rows="3" placeholder="Insira aqui suas observações sobre a atividade."></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-danger">Rejeitar</button>
-          <button type="button" class="btn btn-success">Aprovar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+            // Script para povoar o modal
+            const analiseModal = document.getElementById('analiseModal');
+            analiseModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget;
+                
+                // Dados básicos
+                document.getElementById('modalAlunoNome').textContent = button.getAttribute('data-aluno');
+                document.getElementById('modalGrupo').textContent = button.getAttribute('data-grupo');
+                document.getElementById('modalTipo').textContent = button.getAttribute('data-tipo');
+                document.getElementById('modalSubtipo').textContent = button.getAttribute('data-subtipo');
+                document.getElementById('modalDescricao').textContent = button.getAttribute('data-descricao');
+                document.getElementById('modalHoras').textContent = button.getAttribute('data-horas');
+                document.getElementById('modalData').textContent = button.getAttribute('data-data');
+                document.getElementById('modalAnexo').href = button.getAttribute('data-anexo');
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Este script preenche o modal com os dados da linha clicada
-    const analiseModal = document.getElementById('analiseModal');
-    analiseModal.addEventListener('show.bs.modal', event => {
-      // Botão que acionou o modal
-      const button = event.relatedTarget;
-      
-      // Extrai informações dos atributos data-*
-      const aluno = button.getAttribute('data-aluno');
-      const atividade = button.getAttribute('data-atividade');
-      const horas = button.getAttribute('data-horas');
-      const data = button.getAttribute('data-data');
-      const anexo = button.getAttribute('data-anexo'); // Novo atributo para o link do anexo
+                // Lógica de Limites (Simulada)
+                const acumulado = parseInt(button.getAttribute('data-acumulado'));
+                const limite = parseInt(button.getAttribute('data-limite'));
+                const horasSolicitadas = parseInt(button.getAttribute('data-horas'));
+                
+                // Calcula porcentagem
+                const porcentagem = (acumulado / limite) * 100;
+                
+                // Atualiza textos e barra
+                document.getElementById('modalAcumuladoTexto').textContent = `Acumulado: ${acumulado}h`;
+                document.getElementById('modalLimiteTexto').textContent = `Máx Permitido: ${limite}h`;
+                
+                const progressBar = document.getElementById('modalProgressBar');
+                progressBar.style.width = `${porcentagem}%`;
+                
+                // Muda cor se estiver perto do limite
+                if(porcentagem >= 90) {
+                    progressBar.classList.remove('bg-success');
+                    progressBar.classList.add('bg-danger');
+                } else {
+                    progressBar.classList.remove('bg-danger');
+                    progressBar.classList.add('bg-success');
+                }
+            });
+        });
+    </script>
 
-      // Atualiza o conteúdo do modal
-      document.getElementById('modalAluno').textContent = aluno;
-      document.getElementById('modalAtividade').textContent = atividade;
-      document.getElementById('modalHoras').textContent = horas;
-      document.getElementById('modalData').textContent = data;
-      
-      const modalAnexoLink = document.getElementById('modalAnexo');
-      modalAnexoLink.href = anexo; // Define o link do anexo
-      // Opcional: mostrar o nome do arquivo se o anexo for uma URL
-      // modalAnexoLink.textContent = "Ver Anexo (" + anexo.substring(anexo.lastIndexOf('/')+1) + ")";
-    });
-  </script>
+    <footer class="text-center py-4 mt-5 border-top">
+        <p class="text-muted small mb-0">© 2025 SIGAC - Universidade Federal do Ceará (Campus Sobral).</p>
+    </footer>
 </body>
 </html>
