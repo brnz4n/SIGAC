@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Minhas Atividades</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center" href="hero_section.html">
+                <img src="imagens/favicon sigac ofc.png" alt="Logo SIGAC" height="70">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-3 ms-4">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="dashboard_aluno.html">
+                            <i class='bx bxs-dashboard'></i> Início
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold text-primary" href="minhas_atividades.html">
+                            <i class='bx bx-book-open'></i> Minhas Atividades
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary fw-semibold" href="meu_perfil.html">
+                            <i class='bx bx-user-circle'></i> Meu Perfil
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block text-muted">|</li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-danger btn-sm rounded-pill px-4 fw-bold" href="index.html">
+                            <i class='bx bx-log-out'></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5 pb-5">
+        
+        <!-- Cabeçalho e Botão de Nova Solicitação -->
+        <div class="row pt-4 mb-4 align-items-end anime-start" style="transition-delay: 0.1s;">
+            <div class="col-md-8">
+                <h3 class="fw-bold text-dark mb-1">Histórico de Atividades</h3>
+                <p class="text-muted mb-0">Gerencie todas as suas solicitações enviadas.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="cadastrar_solicitacao.html" class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold">
+                    <i class='bx bx-plus'></i> Nova Solicitação
+                </a>
+            </div>
+        </div>
+
+        <!-- Barra de Filtros (Feature Nova) -->
+        <div class="card border-0 shadow-sm mb-4 anime-start" style="transition-delay: 0.2s;">
+            <div class="card-body p-3">
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class='bx bx-search'></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" placeholder="Buscar por título ou tipo...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Status: Todos</option>
+                            <option value="aprovado">Aprovados</option>
+                            <option value="pendente">Pendentes</option>
+                            <option value="rejeitado">Rejeitados</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Ano: 2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-primary w-100"><i class='bx bx-filter-alt'></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela -->
+        <div class="card border-0 shadow-sm mb-4 anime-start" style="transition-delay: 0.3s;">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light border-bottom">
+                            <tr>
+                                <th scope="col" class="ps-4 py-3">Título da Atividade</th>
+                                <th scope="col" class="py-3">Categoria</th>
+                                <th scope="col" class="py-3">Horas</th>
+                                <th scope="col" class="py-3">Submissão</th>
+                                <th scope="col" class="py-3">Status</th>
+                                <th scope="col" class="pe-4 py-3 text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 1 -->
+                            <tr>
+                                <td class="ps-4 fw-semibold">Minicurso de Python Avançado</td>
+                                <td class="text-muted small">Curso de Extensão</td>
+                                <td>12h</td>
+                                <td>27/08/2025</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success px-3 border border-success border-opacity-25 rounded-pill">Aprovado</span></td>
+                                <td class="pe-4 text-end">
+                                    <button class="btn btn-sm btn-outline-primary rounded-circle" title="Ver Detalhes"><i class='bx bx-show'></i></button>
+                                </td>
+                            </tr>
+                            
+                            <!-- 2 -->
+                            <tr>
+                                <td class="ps-4 fw-semibold">Jornada Full Stack 2025</td>
+                                <td class="text-muted small">Evento</td>
+                                <td>8h</td>
+                                <td>29/08/2025</td>
+                                <td><span class="badge bg-warning bg-opacity-10 text-warning px-3 border border-warning border-opacity-25 rounded-pill text-dark">Pendente</span></td>
+                                <td class="pe-4 text-end">
+                                    <button class="btn btn-sm btn-outline-primary rounded-circle" title="Editar Solicitação"><i class='bx bx-edit-alt'></i></button>
+                                    <button class="btn btn-sm btn-outline-danger rounded-circle" title="Excluir"><i class='bx bx-trash'></i></button>
+                                </td>
+                            </tr>
+                            
+                            <!-- 3 -->
+                            <tr>
+                                <td class="ps-4 fw-semibold">Monitoria de Algoritmos</td>
+                                <td class="text-muted small">Iniciação à Docência</td>
+                                <td>60h</td>
+                                <td>15/08/2025</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success px-3 border border-success border-opacity-25 rounded-pill">Aprovado</span></td>
+                                <td class="pe-4 text-end">
+                                    <button class="btn btn-sm btn-outline-primary rounded-circle"><i class='bx bx-show'></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- 4 (Rejeitado) -->
+                            <tr>
+                                <td class="ps-4 fw-semibold">Projeto de Extensão Comunitária</td>
+                                <td class="text-muted small">Extensão</td>
+                                <td>20h</td>
+                                <td>01/09/2025</td>
+                                <td><span class="badge bg-danger bg-opacity-10 text-danger px-3 border border-danger border-opacity-25 rounded-pill">Rejeitado</span></td>
+                                <td class="pe-4 text-end">
+                                    <button class="btn btn-sm btn-outline-danger rounded-circle me-1" data-bs-toggle="modal" data-bs-target="#modalJustificativa"><i class='bx bx-message-rounded-dots'></i></button>
+                                    <button class="btn btn-sm btn-outline-primary rounded-circle"><i class='bx bx-show'></i></button>
+                                </td>
+                            </tr>
+
+                             <!-- 5 -->
+                             <tr>
+                                <td class="ps-4 fw-semibold">Palestra: IA no Mercado</td>
+                                <td class="text-muted small">Evento</td>
+                                <td>2h</td>
+                                <td>10/05/2025</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success px-3 border border-success border-opacity-25 rounded-pill">Aprovado</span></td>
+                                <td class="pe-4 text-end">
+                                    <button class="btn btn-sm btn-outline-primary rounded-circle"><i class='bx bx-show'></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Paginação(gemini fez a boa) -->
+            <div class="card-footer bg-white border-0 py-3">
+                <nav aria-label="Navegação">
+                    <ul class="pagination justify-content-center mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link border-0" href="#" tabindex="-1"><i class='bx bx-chevron-left'></i> Anterior</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link border-0 rounded-circle mx-1" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link border-0 rounded-circle mx-1" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link border-0 rounded-circle mx-1" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link border-0" href="#">Próximo <i class='bx bx-chevron-right'></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- (Reaproveitado) -->
+    <div class="modal fade" id="modalJustificativa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold"><i class='bx bx-error-circle'></i> Motivo da Rejeição</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="fw-bold text-dark mb-2">Projeto de Extensão Comunitária</p>
+                    <div class="alert alert-light border border-danger-subtle text-danger">
+                        "O certificado enviado está ilegível. Por favor, escaneie novamente."
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end'));
+            }, 100); 
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Recursos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center" href="hero_section.html">
+                <img src="imagens/favicon sigac ofc.png" alt="Logo SIGAC" height="70">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-3 align-items-center anime-start">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="plataforma.html">Plataforma</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-primary" href="recursos.html">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="sobre.html">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary fw-bold rounded-pill px-4" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5 mt-5">
+        <div class="container pt-5">
+            
+            <div class="row justify-content-center text-center mb-5 anime-start">
+                <div class="col-lg-8">
+                    <h6 class="text-primary fw-bold text-uppercase ls-2">Central de Ajuda</h6>
+                    <h1 class="display-5 fw-bold text-dark mb-3">Documentos e Recursos</h1>
+                    <p class="lead text-muted">
+                        Tudo o que você precisa para validar suas atividades: regulamentos, modelos e tutoriais.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloco 1: Downloads -->
+            <div class="row g-4 mb-5 pb-4 anime-start" style="transition-delay: 0.2s;">
+                <div class="col-12 mb-2">
+                    <h4 class="fw-bold border-start border-4 border-primary ps-3">Arquivos Essenciais</h4>
+                </div>
+
+                <!-- Documento 1 -->
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 hover-scale">
+                        <div class="card-body p-4 d-flex align-items-center gap-3">
+                            <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle">
+                                <i class='bx bxs-file-pdf fs-3'></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Resolução Nº 07/CEPE</h6>
+                                <p class="text-muted small mb-0">Normas para validação de horas.</p>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-secondary ms-auto rounded-circle"><i class='bx bx-download'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documento 2 -->
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 hover-scale">
+                        <div class="card-body p-4 d-flex align-items-center gap-3">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle">
+                                <i class='bx bxs-file-doc fs-3'></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Modelo de Declaração</h6>
+                                <p class="text-muted small mb-0">Template padrão para empresas.</p>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-secondary ms-auto rounded-circle"><i class='bx bx-download'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documento 3 -->
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 hover-scale">
+                        <div class="card-body p-4 d-flex align-items-center gap-3">
+                            <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle">
+                                <i class='bx bxs-book-content fs-3'></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Manual do Aluno</h6>
+                                <p class="text-muted small mb-0">Tutorial passo a passo do SIGAC.</p>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-secondary ms-auto rounded-circle"><i class='bx bx-download'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 2: FAQ-->
+            <div class="row justify-content-center anime-start" style="transition-delay: 0.4s;">
+                <div class="col-lg-10">
+                    <h4 class="fw-bold border-start border-4 border-warning ps-3 mb-4">Dúvidas Frequentes</h4>
+                    
+                    <div class="accordion shadow-sm border-0 rounded-3 overflow-hidden" id="accordionFAQ">
+                        
+                        <!-- Pergunta 1 -->
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Quantas horas complementares preciso cumprir?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted">
+                                    Para o curso de Engenharia da Computação, são necessárias <strong>200 horas</strong> de atividades complementares divididas entre ensino, pesquisa e extensão. Consulte a Resolução Nº 07/CEPE para detalhes dos grupos.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pergunta 2 -->
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    O que fazer se minha solicitação for rejeitada?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted">
+                                    Caso sua solicitação seja rejeitada, verifique o motivo no campo "Observação" dentro do sistema. Geralmente, ocorre por documentos ilegíveis ou preenchimento incorreto. Você poderá corrigir e submeter novamente.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pergunta 3 -->
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Posso cadastrar atividades realizadas antes de entrar no curso?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted">
+                                    Não. Apenas atividades realizadas <strong>durante o período de vínculo ativo</strong> com a universidade podem ser contabilizadas como horas complementares.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 3 -->
+            <div class="row mt-5 pt-4 text-center anime-start" style="transition-delay: 0.6s;">
+                <div class="col-12">
+                    <p class="text-muted">Ainda tem dúvidas?</p>
+                    <a href="mailto:coordenacao@computacao.ufc.br" class="btn btn-primary rounded-pill px-4 fw-bold">
+                        <i class='bx bx-envelope'></i> Falar com a Coordenação
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer simples-->
+    <footer class="text-center py-4 mt-5 border-top">
+        <p class="text-muted small mb-0">© 2025 SIGAC - Universidade Federal do Ceará (Campus Sobral).</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                var elementos = document.querySelectorAll('.anime-start');
+                elementos.forEach(function(elemento) {
+                    elemento.classList.add('anime-end');
+                });
+            }, 100); 
+        });
+    </script>
+</body>
+</html>

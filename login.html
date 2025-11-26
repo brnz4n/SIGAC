@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Acesso</title>
+
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="body-center" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh;">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                
+                <div class="text-center mb-4 anime-start">
+                    <a href="hero_section.html">
+                        <img src="imagens/favicon sigac ofc.png" alt="Logo SIGAC" height="70" class="drop-shadow">
+                    </a>
+                </div>
+
+                <!-- Card de Login -->
+                <div class="card card-glass border-0 p-4 anime-start" style="transition-delay: 0.1s;">
+                    <div class="card-body">
+                        
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold text-primary">Bem-vindo de volta!</h3>
+                            <p class="text-muted small">Insira suas credenciais para acessar o portal.</p>
+                        </div>
+
+                        <form action="dashaluno.html" method="GET">
+                            
+                            <div class="mb-3">
+                                <label for="matricula" class="form-label small fw-bold text-secondary ps-1">Login ou Matrícula</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-user'></i></span>
+                                    <input type="text" class="form-control border-start-0 ps-0" id="matricula" placeholder="Digite seu acesso" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="senha" class="form-label small fw-bold text-secondary ps-1">Senha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-lock-alt'></i></span>
+                                    <input type="password" class="form-control border-start-0 ps-0" id="senha" placeholder="••••••••" required>
+                                    <button class="btn btn-outline-secondary border-start-0 border-light-subtle bg-white" type="button" id="togglePassword">
+                                        <i class='bx bx-show'></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4 small">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember">
+                                    <label class="form-check-label text-muted" for="remember">Lembrar-me</label>
+                                </div>
+                                <a href="pag01.html" class="text-decoration-none fw-bold">Esqueci a senha</a>
+                            </div>
+
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold shadow-sm hover-scale">
+                                    ACESSAR SISTEMA
+                                </button>
+                            </div>
+
+                            <div class="text-center">
+                                <p class="small text-muted mb-0">
+                                    Não tem acesso? <a href="cadastro.html" class="fw-bold text-primary text-decoration-none">Cadastre-se</a>
+                                </p>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4 anime-start" style="transition-delay: 0.2s;">
+                    <p class="text-muted small opacity-75">© 2025 SIGAC - Engenharia de Computação</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                var elementos = document.querySelectorAll('.anime-start');
+                elementos.forEach(function(elemento) {
+                    elemento.classList.add('anime-end');
+                });
+            }, 100);
+
+            // Toggle de Senha (Mostrar/Esconder)
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#senha');
+            const icon = togglePassword.querySelector('i');
+
+            togglePassword.addEventListener('click', function () {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // Troca o ícone
+                icon.classList.toggle('bx-show');
+                icon.classList.toggle('bx-hide');
+            });
+        });
+    </script>
+</body>
+</html>
