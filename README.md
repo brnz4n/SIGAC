@@ -4,13 +4,18 @@ Projeto front-end de um sistema acadêmico fictício, desenvolvido como atividad
 
 Sobre o Projeto:
 
-O **SIGAC** é uma aplicação web estática (front-end) que simula um portal acadêmico. O sistema apresenta diferentes visualizações (dashboards) dependendo do tipo de usuário que acessa a plataforma.
+O SIGAC é um protótipo de interface web (front-end) desenvolvido para simular o ambiente de um portal acadêmico. O objetivo principal foi criar uma arquitetura de informação clara e intuitiva, diferenciando as visualizações conforme o nível de acesso do usuário.
 
-Funcionalidades Implementadas:
+Este projeto foca na estruturação semântica e na estilização pura, sem dependências de frameworks, para demonstrar o domínio das tecnologias web fundamentais.
 
-* Página de Login
-* Dashboard do Aluno
-* Dashboard do Coordenador
+Funcionalidades e Interfaces
+O sistema conta com fluxos de navegação distintos para diferentes atores:
+
+Autenticação: Interface de login responsiva e amigável.
+
+Painel do Aluno: Dashboard focado na visualização rápida de informações acadêmicas essenciais.
+
+Painel do Coordenador: Dashboard administrativo com foco em gestão e visão macro.
 
 Tecnologias Utilizadas
 
