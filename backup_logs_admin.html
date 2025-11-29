@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Backup e Logs</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
+
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard_admin.html">
+                <img src="imagens/favicon sigac ofc.png" alt="Logo" height="40" style="filter: brightness(0) invert(1);">
+                <span class="fw-bold small d-none d-md-block text-warning">ADMINISTRAÇÃO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuAdm">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="menuAdm">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="dashboard_admin.html"><i class='bx bxs-dashboard'></i> Painel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="admin_usuarios.html"><i class='bx bxs-user-account'></i> Usuários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="backup_logs_admin.html"><i class='bx bxs-data'></i> Backup & Logs</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center gap-3 text-white">
+                    <div class="text-end d-none d-lg-block">
+                        <p class="mb-0 small fw-bold">Super Admin</p>
+                        <p class="mb-0 small opacity-75" style="font-size: 0.75rem;">TI / Secretaria</p>
+                    </div>
+                    <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Sair</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5 pb-5">
+        
+        <div class="row pt-4 mb-4 align-items-center anime-start" style="transition-delay: 0.1s;">
+
+    <div class="col-auto">
+        <a href="dashboard_admin.html" class="btn btn-outline-secondary rounded-circle" title="Voltar">
+            <i class='bx bx-arrow-back'></i>
+        </a>
+    </div>
+
+        <div class="col-md-7 col-12">
+            <h3 class="fw-bold text-dark mb-1">Auditoria e Segurança</h3>
+            <p class="text-muted mb-0">Monitore as atividades do sistema e gerencie cópias de segurança.</p>
+        </div>
+
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <button class="btn btn-success rounded-pill px-4 fw-bold shadow-sm"
+                onclick="alert('Backup manual iniciado!')">
+                    <i class='bx bx-cloud-upload'></i> Gerar Backup Agora
+            </button>
+        </div>
+
+    </div>
+
+
+        <div class="row g-4 anime-start" style="transition-delay: 0.2s;">
+            
+            <!-- Logs de Atividade -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold text-dark"><i class='bx bx-list-ul text-muted'></i> Logs do Sistema</h5>
+                        <div class="d-flex gap-2">
+                            <select class="form-select form-select-sm w-auto">
+                                <option>Todos os Eventos</option>
+                                <option>Login/Acesso</option>
+                                <option>Alteração de Dados</option>
+                                <option>Erro de Sistema</option>
+                            </select>
+                            <button class="btn btn-sm btn-outline-secondary"><i class='bx bx-refresh'></i></button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 small">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4">Data/Hora</th>
+                                    <th>Usuário</th>
+                                    <th>Ação</th>
+                                    <th>Detalhes (IP/Recurso)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-4 text-muted">29/11/2025 10:45:12</td>
+                                    <td class="fw-bold">admin_super</td>
+                                    <td><span class="badge bg-danger">Falha Login</span></td>
+                                    <td>IP: 192.168.1.105 (Tentativa incorreta)</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 text-muted">29/11/2025 10:42:00</td>
+                                    <td class="fw-bold">prof.fernando</td>
+                                    <td><span class="badge bg-primary">Edição</span></td>
+                                    <td>Alterou Configuração: Prazo_Submissao</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 text-muted">29/11/2025 09:30:15</td>
+                                    <td class="fw-bold">joao.silva</td>
+                                    <td><span class="badge bg-success">Upload</span></td>
+                                    <td>Enviou arquivo: certificado_python.pdf</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 text-muted">29/11/2025 08:15:00</td>
+                                    <td class="fw-bold">Sistema</td>
+                                    <td><span class="badge bg-info text-dark">Backup</span></td>
+                                    <td>Backup Automático Diário Concluído</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 text-muted">28/11/2025 18:20:33</td>
+                                    <td class="fw-bold">sec.geral</td>
+                                    <td><span class="badge bg-warning text-dark">Reset Senha</span></td>
+                                    <td>Resetou senha do aluno: 510233</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-white border-0 py-3 text-center">
+                        <nav aria-label="Navegação logs">
+                            <ul class="pagination pagination-sm justify-content-center mb-0">
+                                <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                                <li class="page-item active"><a class="page-link bg-dark border-dark" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link text-dark" href="#">Próximo</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- de Backups -->
+            <div class="col-lg-4">
+                
+                <!-- Lista de Backups -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white py-3 border-bottom">
+                        <h5 class="mb-0 fw-bold text-dark"><i class='bx bx-server text-muted'></i> Arquivos de Backup</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <span class="d-block fw-bold text-success"><i class='bx bx-check-circle'></i> backup_diario.sql</span>
+                                    <small class="text-muted">Hoje, 04:00 AM • 45MB</small>
+                                </div>
+                                <button class="btn btn-sm btn-light border" title="Baixar"><i class='bx bx-download'></i></button>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <span class="d-block fw-bold text-dark"><i class='bx bx-file'></i> backup_semanal.zip</span>
+                                    <small class="text-muted">24/11/2025 • 320MB</small>
+                                </div>
+                                <button class="btn btn-sm btn-light border" title="Baixar"><i class='bx bx-download'></i></button>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <div>
+                                    <span class="d-block fw-bold text-dark"><i class='bx bx-file'></i> backup_mensal.zip</span>
+                                    <small class="text-muted">01/11/2025 • 1.2GB</small>
+                                </div>
+                                <button class="btn btn-sm btn-light border" title="Baixar"><i class='bx bx-download'></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-light border-0 p-3">
+                        <div class="d-grid">
+                            <button class="btn btn-outline-danger btn-sm" title="Usar com cautela!">
+                                <i class='bx bx-history'></i> Restaurar Versão Anterior
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuração -->
+                <div class="card border-0 shadow-sm bg-primary bg-opacity-10">
+                    <div class="card-body">
+                        <h6 class="fw-bold text-primary mb-3">Política de Retenção</h6>
+                        <form>
+                            <div class="mb-2">
+                                <label class="form-label small fw-bold">Guardar Logs por:</label>
+                                <select class="form-select form-select-sm">
+                                    <option>30 dias</option>
+                                    <option selected>90 dias (Recomendado)</option>
+                                    <option>1 ano</option>
+                                </select>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="autoBackup" checked>
+                                <label class="form-check-label small" for="autoBackup">Backup Automático (04:00 AM)</label>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm w-100 fw-bold">Salvar Config</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                var elementos = document.querySelectorAll('.anime-start');
+                elementos.forEach(function(elemento) {
+                    elemento.classList.add('anime-end');
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

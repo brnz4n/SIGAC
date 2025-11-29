@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Gestão de Alunos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard_coordenador.html">
+                <img src="imagens/favicon sigac ofc.png" alt="Logo" height="40" style="filter: brightness(0) invert(1);">
+                <span class="fw-bold small d-none d-md-block">COORDENAÇÃO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCoord">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="menuCoord">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="dashboard_coordenador.html"><i class='bx bxs-dashboard'></i> Visão Geral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="coordenador_alunos.html"><i class='bx bxs-user-detail'></i> Alunos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="coordenador_relatorio.html"><i class='bx bxs-report'></i> Relatórios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="coordenador_configuracao.html"><i class='bx bxs-cog'></i> Configurações</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center gap-3 text-white">
+                    <div class="text-end d-none d-lg-block">
+                        <p class="mb-0 small fw-bold">Prof. Fernando</p>
+                        <p class="mb-0 small opacity-75" style="font-size: 0.75rem;">Coordenador</p>
+                    </div>
+                    <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Sair</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="container mt-5 pt-5 pb-5">
+        
+        <!-- Cabeçalho -->
+        <div class="row pt-4 mb-4 align-items-center anime-start" style="transition-delay: 0.1s;">
+            <div class="col-auto">
+                <a href="dashboard_coordenador.html" class="btn btn-outline-secondary rounded-circle" title="Voltar">
+                    <i class='bx bx-arrow-back'></i>
+                </a>
+            </div>
+            <div class="col-md-7 mt-md-12">
+                <h3 class="fw-bold text-dark mb-1">Acompanhamento Discente</h3>
+                <p class="text-muted mb-0">Monitore o cumprimento da carga horária complementar de cada aluno.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <button class="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                    <i class='bx bx-export'></i> Exportar Lista (XLS)
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de Filtros Avançados -->
+        <div class="card border-0 shadow-sm mb-4 anime-start" style="transition-delay: 0.2s;">
+            <div class="card-body p-3">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class='bx bx-search'></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" placeholder="Buscar por nome ou matrícula...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Situação: Todos</option>
+                            <option value="risco" class="text-danger fw-bold">Em Risco (Poucas Horas)</option>
+                            <option value="concluido" class="text-success fw-bold">Concluído</option>
+                            <option value="regular">Regular</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option selected>Semestre: Todos</option>
+                            <option value="10">10º Semestre</option>
+                            <option value="9">9º Semestre</option>
+                            <option value="8">8º Semestre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100 fw-bold">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Alunos -->
+        <div class="card border-0 shadow-sm mb-5 anime-start" style="transition-delay: 0.3s;">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 py-3">Aluno / Matrícula</th>
+                            <th class="py-3">Semestre</th>
+                            <th class="py-3" style="width: 30%;">Progresso (Horas)</th>
+                            <th class="py-3 text-center">Situação</th>
+                            <th class="pe-4 py-3 text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <!-- Aluno 1: Regular -->
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        AB
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Antonio Breno Oliveira</h6>
+                                        <small class="text-muted">542638</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>6º Semestre</td>
+                            <td>
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="fw-bold text-primary">120h</span>
+                                    <span class="text-muted">Meta: 200h</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-light text-dark border rounded-pill px-3">Regular</span>
+                            </td>
+                            <td class="pe-4 text-end">
+                                <a href="lancamento_manual.html" class="btn btn-sm btn-outline-secondary" title="Lançar Horas">
+                                    <i class='bx bx-plus'></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-primary" title="Ver Histórico">
+                                    <i class='bx bx-id-card'></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Aluno 2: Em risco -->
+                        <tr class="table-danger bg-opacity-10">
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        CS
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold text-danger">Carlos Souza</h6>
+                                        <small class="text-danger opacity-75">510999</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-danger fw-bold">10º Semestre</td>
+                            <td>
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="fw-bold text-danger">40h</span>
+                                    <span class="text-muted">Meta: 200h</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%;"></div>
+                                </div>
+                                <small class="text-danger fw-bold" style="font-size: 0.7rem;">
+                                    <i class='bx bx-error'></i> Risco de não colação
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-danger rounded-pill px-3">Crítico</span>
+                            </td>
+                            <td class="pe-4 text-end">
+                                <button class="btn btn-sm btn-danger shadow-sm" title="Notificar Aluno">
+                                    <i class='bx bx-bell'></i>
+                                </button>
+                                <a href="lancamento_manual.html" class="btn btn-sm btn-outline-danger" title="Lançar Horas Manualmente">
+                                    <i class='bx bx-plus'></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <!-- Aluno 3: Concluído -->
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        MJ
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Maria Julia Costa</h6>
+                                        <small class="text-muted">493021</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>8º Semestre</td>
+                            <td>
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="fw-bold text-success">210h</span>
+                                    <span class="text-muted">Meta: 200h</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-3">Concluído</span>
+                            </td>
+                            <td class="pe-4 text-end">
+                                <button class="btn btn-sm btn-outline-success" title="Gerar Certificado">
+                                    <i class='bx bx-certification'></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" title="Ver Histórico">
+                                    <i class='bx bx-id-card'></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Aluno 4: Regular -->
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        FN
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Felipe Nogueira</h6>
+                                        <small class="text-muted">550112</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>4º Semestre</td>
+                            <td>
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="fw-bold text-primary">80h</span>
+                                    <span class="text-muted">Meta: 200h</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 40%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-light text-dark border rounded-pill px-3">Regular</span>
+                            </td>
+                            <td class="pe-4 text-end">
+                                <a href="lancamento_manual.html" class="btn btn-sm btn-outline-secondary" title="Lançar Horas">
+                                    <i class='bx bx-plus'></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-primary" title="Ver Histórico">
+                                    <i class='bx bx-id-card'></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginação -->
+            <div class="card-footer bg-white border-0 py-3">
+                <nav aria-label="Navegação">
+                    <ul class="pagination justify-content-center mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link border-0" href="#"><i class='bx bx-chevron-left'></i> Anterior</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link border-0 rounded-circle mx-1" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link border-0 rounded-circle mx-1" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link border-0 rounded-circle mx-1" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link border-0" href="#">Próximo <i class='bx bx-chevron-right'></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                var elementos = document.querySelectorAll('.anime-start');
+                elementos.forEach(function(elemento) {
+                    elemento.classList.add('anime-end');
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

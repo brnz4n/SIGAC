@@ -1,6 +1,3 @@
-![Página Inicial](https://github.com/brnz4n/SIGAC/blob/main/SIGAC.png?raw=true)
-
-
 SIGAC - Sistema de Gerenciamento Acadêmico
 
 Projeto front-end de um sistema acadêmico fictício, desenvolvido como atividade prática para a disciplina de Engenharia de Software.

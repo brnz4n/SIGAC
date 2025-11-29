@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAC - Configurações</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
+
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard_coordenador.html">
+                <img src="imagens/favicon sigac ofc.png" alt="Logo" height="40" style="filter: brightness(0) invert(1);">
+                <span class="fw-bold small d-none d-md-block">COORDENAÇÃO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCoord">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="menuCoord">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="dashboard_coordenador.html"><i class='bx bxs-dashboard'></i> Visão Geral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="coordenador_alunos.html"><i class='bx bxs-user-detail'></i> Alunos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="coordenador_configuracao.html"><i class='bx bxs-report'></i> Relatórios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="coordenador_configuracao.html"><i class='bx bxs-cog'></i> Configurações</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center gap-3 text-white">
+                    <div class="text-end d-none d-lg-block">
+                        <p class="mb-0 small fw-bold">Prof. Fernando</p>
+                        <p class="mb-0 small opacity-75" style="font-size: 0.75rem;">Coordenador</p>
+                    </div>
+                    <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Sair</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5 pb-5">
+        
+        <div class="row pt-4 mb-4 align-items-center anime-start" style="transition-delay: 0.1s;">
+            <div class="col-auto">
+                <a href="dashboard_coordenador.html" class="btn btn-outline-secondary rounded-circle" title="Voltar">
+                    <i class='bx bx-arrow-back'></i>
+                </a>
+            </div>
+            <div class="col-md-7 mt-md-12">
+                <h3 class="fw-bold text-dark mb-1">Configurações do Curso</h3>
+                <p class="text-muted mb-0">Gerencie regras, prazos e parâmetros do sistema.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <button class="btn btn-success rounded-pill px-4 fw-bold shadow-sm">
+                    <i class='bx bx-save'></i> Salvar Alterações
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-4 anime-start" style="transition-delay: 0.2s;">
+            
+            <!-- Coluna Esquerda: Navegação Vertical -->
+            <div class="col-md-3">
+                <div class="list-group shadow-sm border-0 rounded-3">
+                    <a href="#limites" class="list-group-item list-group-item-action active fw-bold py-3" data-bs-toggle="list">
+                        <i class='bx bx-slider-alt'></i> Limites de Horas
+                    </a>
+                    <a href="#atividades" class="list-group-item list-group-item-action py-3" data-bs-toggle="list">
+                        <i class='bx bx-list-check'></i> Tipos de Atividades
+                    </a>
+                    <a href="#prazos" class="list-group-item list-group-item-action py-3" data-bs-toggle="list">
+                        <i class='bx bx-calendar-event'></i> Prazos e Calendário
+                    </a>
+                    <a href="#sistema" class="list-group-item list-group-item-action py-3" data-bs-toggle="list">
+                        <i class='bx bx-shield-quarter'></i> Permissões
+                    </a>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Conteúdo das Configurações -->
+            <div class="col-md-9">
+                <div class="tab-content">
+                    
+                    <!-- Painel 1: Limites de Horas -->
+                    <div class="tab-pane fade show active" id="limites">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3 border-bottom">
+                                <h5 class="mb-0 fw-bold text-primary">Regras de Carga Horária (Resolução 07/CEPE)</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="alert alert-info border-0 d-flex align-items-center gap-3">
+                                    <i class='bx bx-info-circle fs-3'></i>
+                                    <div>
+                                        <strong>Total Exigido:</strong> O aluno deve completar no mínimo <strong>200 horas</strong> para colar grau.
+                                    </div>
+                                </div>
+
+                                <h6 class="fw-bold mt-4 mb-3 text-secondary">Limites por Grupo</h6>
+                                
+                                <div class="row g-3 align-items-center mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-bold">Ensino</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" value="120">
+                                            <span class="input-group-text">h (Max)</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 text-muted small">
+                                        Monitorias, cursos de língua estrangeira, etc.
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 align-items-center mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-bold">Pesquisa</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" value="120">
+                                            <span class="input-group-text">h (Max)</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 text-muted small">
+                                        Iniciação científica, publicações, etc.
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 align-items-center mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-bold">Extensão</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" value="120">
+                                            <span class="input-group-text">h (Max)</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 text-muted small">
+                                        Projetos sociais, organização de eventos, etc.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Painel 2: Tipos de Atividades -->
+                    <div class="tab-pane fade" id="atividades">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0 fw-bold text-primary">Catálogo de Atividades</h5>
+                                <button class="btn btn-sm btn-outline-primary rounded-pill">
+                                    <i class='bx bx-plus'></i> Novo Tipo
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="ps-4">Atividade</th>
+                                            <th>Grupo</th>
+                                            <th>Fator Conversão</th>
+                                            <th>Status</th>
+                                            <th class="text-end pe-4">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="ps-4 fw-bold">Monitoria</td>
+                                            <td><span class="badge bg-info bg-opacity-25 text-dark border border-info border-opacity-25">Ensino</span></td>
+                                            <td>1h = 1h</td>
+                                            <td><span class="badge bg-success">Ativo</span></td>
+                                            <td class="text-end pe-4">
+                                                <button class="btn btn-sm btn-light border"><i class='bx bx-edit'></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4 fw-bold">Artigo em Congresso</td>
+                                            <td><span class="badge bg-success bg-opacity-25 text-dark border border-success border-opacity-25">Pesquisa</span></td>
+                                            <td>1 un = 20h</td>
+                                            <td><span class="badge bg-success">Ativo</span></td>
+                                            <td class="text-end pe-4">
+                                                <button class="btn btn-sm btn-light border"><i class='bx bx-edit'></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4 fw-bold">Ouvinte em Palestra</td>
+                                            <td><span class="badge bg-warning bg-opacity-25 text-dark border border-warning border-opacity-25">Extensão</span></td>
+                                            <td>1h = 1h</td>
+                                            <td><span class="badge bg-secondary">Inativo</span></td>
+                                            <td class="text-end pe-4">
+                                                <button class="btn btn-sm btn-light border"><i class='bx bx-edit'></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Painel 3: Prazos -->
+                    <div class="tab-pane fade" id="prazos">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3 border-bottom">
+                                <h5 class="mb-0 fw-bold text-primary">Calendário Acadêmico</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">Abertura para Submissões</label>
+                                        <input type="date" class="form-control" value="2025-02-01">
+                                        <div class="form-text">Início do período de envio pelos alunos.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">Fechamento para Submissões</label>
+                                        <input type="date" class="form-control" value="2025-06-30">
+                                        <div class="form-text">Data limite para envio de novas atividades.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check form-switch mt-3">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                            <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">Permitir envios fora do prazo (com justificativa)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Painel 4: Permissões -->
+                    <div class="tab-pane fade" id="sistema">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3 border-bottom">
+                                <h5 class="mb-0 fw-bold text-primary">Controle de Acesso</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Coordenadores Ativos</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Fernando (Você)</strong>
+                                                <div class="small text-muted">Acesso Total</div>
+                                            </div>
+                                            <span class="badge bg-primary">Admin</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Secretaria Acadêmica</strong>
+                                                <div class="small text-muted">Acesso de Visualização</div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-danger">Remover</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm">
+                                    <i class='bx bx-user-plus'></i> Adicionar Novo Usuário
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                var elementos = document.querySelectorAll('.anime-start');
+                elementos.forEach(function(elemento) {
+                    elemento.classList.add('anime-end');
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
