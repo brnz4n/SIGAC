@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Declaração - SIGAC</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
+
+    <style>
+        /* Fonte Serifada pra ficar diferente */
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Times New Roman', Times, serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        /* --- Folha A4 --- */
+        .pagina-a4 {
+            background-color: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm 25mm 20mm 25mm;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+                display: block;
+            }
+            .pagina-a4 {
+                box-shadow: none;
+                width: 100%;
+                height: auto;
+                margin: 0;
+                padding: 15mm 20mm;
+                border: none;
+                overflow: hidden;
+            }
+            .no-print {
+                display: none !important;
+            }
+            
+            header {
+                margin-bottom: 20px !important; /* Reduz espaço abaixo do cabeçalho */
+                padding-bottom: 10px !important;
+            }
+            .titulo-doc {
+                margin: 20px 0 !important;
+            }
+            .conteudo {
+                line-height: 1.6 !important;
+            }
+            .assinatura {
+                margin-top: 40px !important;
+            }
+            .rodape {
+                position: static !important;
+                margin-top: 30px;
+                border-top: 1px solid #ccc;
+            }
+
+            .editavel {
+                background-color: transparent !important;
+                border-bottom: none !important;
+                padding: 0 !important;
+                font-weight: bold;
+            }
+            .editavel:placeholder-shown {
+                border-bottom: 1px solid #000 !important;
+            }
+            header input.editavel {
+                font-weight: bold !important;
+                text-align: center !important;
+                border: none !important;
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background-color: #f8f9fa;
+            border: 2px dashed #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: #999;
+            font-size: 10px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .titulo-doc {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 50px 0;
+            letter-spacing: 2px;
+        }
+
+        .conteudo {
+            font-size: 16px;
+            line-height: 2.0;
+            text-align: justify;
+        }
+
+        .editavel {
+            border: none;
+            border-bottom: 1px dashed #0d6efd;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: bold;
+            color: #000;
+            background: rgba(13, 110, 253, 0.05);
+            padding: 0 5px;
+            width: auto;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .editavel:focus {
+            outline: none;
+            background: rgba(13, 110, 253, 0.15);
+            border-bottom: 2px solid #0d6efd;
+        }
+
+        .header-empresa {
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        
+        .header-subtitulo {
+            font-size: 14px;
+            font-weight: normal;
+            color: #555;
+            width: 100%;
+            margin-bottom: 2px;
+        }
+
+        .lista-atividades {
+            margin: 20px 0;
+            padding-left: 40px;
+        }
+        .lista-atividades li { margin-bottom: 10px; }
+
+        .assinatura {
+            margin-top: 100px;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .linha-assinatura {
+            border-top: 1px solid #000;
+            width: 60%;
+            margin: 0 auto 10px auto;
+        }
+
+        .rodape {
+            position: absolute;
+            bottom: 15mm;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .fab-print {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 1000;
+            border: none;
+        }
+        .fab-print:hover {
+            transform: scale(1.1);
+            background-color: #0b5ed7;
+        }
+        
+        .instrucoes-box {
+            max-width: 210mm;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="fab-print no-print" onclick="window.print()" title="Imprimir / Salvar PDF">
+        <i class='bx bx-printer'></i>
+    </button>
+
+    <div class="instrucoes-box alert alert-primary shadow-sm border-0 d-flex align-items-center no-print" role="alert">
+        <i class='bx bx-info-circle fs-2 me-3'></i>
+        <div>
+            <h5 class="alert-heading fw-bold mb-1">Como usar este modelo?</h5>
+            <p class="mb-0 small">
+                1. Clique nos campos destacados em azul para preencher os dados.<br>
+                2. Se a empresa tiver logo, clique no círculo pontilhado para adicionar.<br>
+                3. Clique no botão de impressora para salvar como PDF ou imprimir.
+            </p>
+        </div>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="pagina-a4">
+        
+        <header>
+            <div class="logo-placeholder no-print" onclick="document.getElementById('logoInput').click()" id="logoArea">
+                <span>Clique para<br>adicionar Logo</span>
+            </div>
+            <input type="file" id="logoInput" accept="image/*" style="display: none;" onchange="carregarLogo(this)">
+            <img id="logoReal" style="display: none; height: 80px; margin: 0 auto 15px auto;" alt="Logo Empresa">
+
+            <input type="text" class="editavel header-empresa" placeholder="NOME DA EMPRESA / INSTITUIÇÃO" value="NOME DA EMPRESA / INSTITUIÇÃO">
+            <input type="text" class="editavel header-subtitulo" placeholder="Endereço Completo, Cidade - UF | CNPJ" value="Endereço Completo, Cidade - UF | CNPJ: 00.000.000/0000-00">
+            <input type="text" class="editavel header-subtitulo" placeholder="Telefone / E-mail" value="Telefone: (00) 0000-0000 | E-mail: contato@empresa.com">
+        </header>
+
+        <div class="titulo-doc">DECLARAÇÃO DE ATIVIDADES</div>
+
+        <div class="conteudo">
+            <p>
+                Declaramos para os devidos fins que o(a) Sr(a). 
+                <input type="text" class="editavel" placeholder="NOME DO ALUNO" style="width: 350px; text-transform: uppercase;">, 
+                inscrito(a) no CPF sob o nº 
+                <input type="text" class="editavel" placeholder="000.000.000-00" style="width: 160px;">, 
+                participou das atividades desta instituição exercendo a função de 
+                <input type="text" class="editavel" placeholder="Cargo/Função (Ex: Estagiário)" style="width: 300px;">.
+            </p>
+
+            <p>
+                As atividades foram desenvolvidas no período de 
+                <input type="date" class="editavel" style="width: 140px;"> a 
+                <input type="date" class="editavel" style="width: 140px;">, 
+                cumprindo uma carga horária total de 
+                <input type="number" class="editavel" placeholder="00" style="width: 60px;"> horas.
+            </p>
+
+            <p>Abaixo, listamos as principais atividades desempenhadas:</p>
+
+            <ul class="lista-atividades">
+                <li><input type="text" class="editavel" placeholder="Descreva a atividade 1 aqui..." style="width: 90%; text-align: left;"></li>
+                <li><input type="text" class="editavel" placeholder="Descreva a atividade 2 aqui..." style="width: 90%; text-align: left;"></li>
+                <li><input type="text" class="editavel" placeholder="Descreva a atividade 3 aqui..." style="width: 90%; text-align: left;"></li>
+                <li><input type="text" class="editavel" placeholder="Descreva a atividade 4 aqui (opcional)..." style="width: 90%; text-align: left;"></li>
+            </ul>
+
+            <p>
+                Por ser verdade, firmamos o presente documento para que surta seus efeitos legais e administrativos junto à Universidade Federal do Ceará.
+            </p>
+
+            <br>
+            <p style="text-align: right;">
+                Sobral - CE, <span id="dataAtual" class="fw-bold">__ de ___________ de ____</span>.
+            </p>
+        </div>
+
+        <div class="assinatura">
+            <div class="linha-assinatura"></div>
+            <strong><input type="text" class="editavel" placeholder="NOME DO RESPONSÁVEL" style="width: 400px; text-align: center; text-transform: uppercase;"></strong><br>
+            <input type="text" class="editavel" placeholder="Cargo do Responsável" style="width: 300px; text-align: center; font-weight: normal; font-style: italic;"><br>
+            <span style="font-size: 12px; color: #666; display: block; margin-top: 5px;">(Assinatura e Carimbo da Instituição)</span><br>
+        </div>
+
+        <div class="rodape">
+            Documento gerado via SIGAC - Sistema de Gestão de Atividades Complementares.<br>
+            Este modelo serve apenas como referência. A validação depende da assinatura original da instituição promotora.
+        </div>
+
+    </div>
+
+    <script>
+        const data = new Date();
+        const dia = String(data.getDate()).padStart(2, '0');
+        const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+        const ano = data.getFullYear();
+        document.getElementById('dataAtual').innerText = `${dia} de ${meses[data.getMonth()]} de ${ano}`;
+
+        function carregarLogo(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('logoReal');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    document.getElementById('logoArea').style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+</body>
+</html>

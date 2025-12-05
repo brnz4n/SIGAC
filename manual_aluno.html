@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do Aluno - SIGAC</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
+
+    <style>
+        .sidebar-sticky {
+            position: sticky;
+            top: 100px;
+            z-index: 1000;
+        }
+        
+        .list-group-item-action:hover, .list-group-item-action:focus {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        /*impressão */
+        @media print {
+            .sidebar-col, .navbar, .btn-voltar-topo { display: none !important; }
+            .content-col { width: 100% !important; flex: 0 0 100% !important; max-width: 100% !important; }
+            .card { border: 1px solid #ddd !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm py-2 anime-start">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="imagens/favicon sigac ofc.png" alt="Logo SIGAC" height="70">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link text-secondary" href="recursos.html">Voltar para Recursos</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-primary fw-bold rounded-pill px-4" href="index.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5 pb-5">
+        
+        <div class="row pt-4 anime-start" style="transition-delay: 0.1s;">
+            
+            <div class="col-lg-3 mb-4 sidebar-col">
+                <div class="sidebar-sticky">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3 border-bottom-0">
+                            <h6 class="fw-bold text-primary mb-0"><i class='bx bx-list-ul'></i> Índice</h6>
+                        </div>
+                        <div class="list-group list-group-flush small">
+                            <a href="#intro" class="list-group-item list-group-item-action py-2 border-0 rounded">1. Introdução</a>
+                            <a href="#acesso" class="list-group-item list-group-item-action py-2 border-0 rounded">2. Primeiro Acesso</a>
+                            <a href="#dashboard" class="list-group-item list-group-item-action py-2 border-0 rounded">3. Entendendo o Painel</a>
+                            <a href="#cadastrar" class="list-group-item list-group-item-action py-2 border-0 rounded">4. Cadastrar Atividade</a>
+                            <a href="#acompanhar" class="list-group-item list-group-item-action py-2 border-0 rounded">5. Status e Correção</a>
+                            <a href="#duvidas" class="list-group-item list-group-item-action py-2 border-0 rounded">6. Dúvidas Comuns</a>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-primary w-100 btn-sm fw-bold rounded-pill" onclick="window.print()">
+                                <i class='bx bx-printer'></i> Imprimir Manual
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 content-col">
+                
+                <div class="mb-5 border-bottom pb-3">
+                    <h1 class="fw-bold text-dark" id="intro">Manual do Aluno</h1>
+                    <p class="lead text-muted">Guia oficial de utilização do SIGAC para discentes de Engenharia da Computação.</p>
+                    
+                    <div class="alert alert-warning d-flex align-items-center border-0 shadow-sm mt-4" role="alert">
+                        <i class='bx bx-info-circle fs-2 me-3'></i>
+                        <div>
+                            <strong>Regra de Ouro:</strong> Para colar grau, você precisa completar <strong>200 horas</strong> distribuídas entre Ensino, Pesquisa e Extensão.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção 2: Acesso -->
+                <section id="acesso" class="mb-5 pt-3">
+                    <h3 class="fw-bold text-primary mb-3"><i class='bx bx-log-in-circle'></i> 2. Primeiro Acesso</h3>
+                    <p>Se você é aluno novo, siga os passos abaixo para liberar seu acesso:</p>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm bg-white">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 fw-bold" style="width: 32px; height: 32px;">1</div>
+                                        <h6 class="fw-bold mb-0">Cadastro Inicial</h6>
+                                    </div>
+                                    <p class="small text-muted mb-0">Na tela inicial, clique em <strong>"Cadastre-se"</strong>. Informe sua matrícula, CPF e e-mail institucional.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm bg-white">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 fw-bold" style="width: 32px; height: 32px;">2</div>
+                                        <h6 class="fw-bold mb-0">Login</h6>
+                                    </div>
+                                    <p class="small text-muted mb-0">Use sua matrícula e a senha criada para entrar. Caso esqueça a senha, use a opção "Esqueci minha senha" na tela de login.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="text-muted opacity-25">
+
+                <!-- Seção 3: Dashboard -->
+                <section id="dashboard" class="mb-5 pt-3">
+                    <h3 class="fw-bold text-primary mb-3"><i class='bx bxs-dashboard'></i> 3. Entendendo o Painel</h3>
+                    <p>O <strong>Dashboard</strong> é a primeira tela que você vê. Ele resume sua vida acadêmica:</p>
+                    
+                    <ul class="list-group shadow-sm border-0 mb-3">
+                        <li class="list-group-item d-flex align-items-start border-0 border-bottom">
+                            <i class='bx bx-check-circle text-success fs-4 me-3'></i>
+                            <div>
+                                <strong>Total de Horas Aprovadas:</strong> Soma de todas as atividades já validadas pelo coordenador.
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-start border-0 border-bottom">
+                            <i class='bx bx-time-five text-warning fs-4 me-3'></i>
+                            <div>
+                                <strong>Em Análise:</strong> Quantidade de certificados que você enviou e estão na fila de espera.
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-start border-0">
+                            <i class='bx bx-history text-secondary fs-4 me-3'></i>
+                            <div>
+                                <strong>Histórico Recente:</strong> Lista rápida das últimas 3 movimentações.
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <hr class="text-muted opacity-25">
+
+                <!-- Seção 4: Cadastro -->
+                <section id="cadastrar" class="mb-5 pt-3">
+                    <h3 class="fw-bold text-primary mb-3"><i class='bx bx-plus-circle'></i> 4. Como Cadastrar Atividade</h3>
+                    <p>Este é o processo principal do sistema. Siga atentamente para evitar indeferimentos.</p>
+
+                    <div class="card card-glass mb-4">
+                        <div class="card-body">
+                            <h5 class="fw-bold mb-3">Passo a Passo</h5>
+                            <ol class="mb-0">
+                                <li class="mb-2">Clique no botão <strong>"Nova Solicitação"</strong> no menu superior.</li>
+                                <li class="mb-2"><strong>Classifique a Atividade:</strong> Selecione o Grupo, depois o Tipo e o Subtipo.</li>
+                                <li class="mb-2"><strong>Preencha os Detalhes:</strong> Informe a instituição, datas e carga horária exata do certificado.</li>
+                                <li class="mb-2"><strong>Anexo:</strong> Faça o upload do arquivo (PDF ou Imagem). 
+                                    <span class="text-danger small fw-bold">*O arquivo deve estar legível.</span>
+                                </li>
+                                <li>Clique em <strong>"Enviar para Análise"</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="text-muted opacity-25">
+
+                <!-- Seção 5: Status -->
+                <section id="acompanhar" class="mb-5 pt-3">
+                    <h3 class="fw-bold text-primary mb-3"><i class='bx bx-traffic-cone'></i> 5. Status e Correção</h3>
+                    <p>Acompanhe suas solicitações na aba <strong>"Minhas Atividades"</strong>.</p>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded bg-white text-center h-100 shadow-sm">
+                                <span class="badge bg-success mb-2">APROVADO</span>
+                                <p class="small text-muted mb-0">Tudo certo! As horas já constam no seu histórico.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded bg-white text-center h-100 shadow-sm">
+                                <span class="badge bg-warning text-dark mb-2">PENDENTE</span>
+                                <p class="small text-muted mb-0">Aguardando análise da coordenação. Você pode editar ou excluir se necessário.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded bg-white text-center h-100 shadow-sm">
+                                <span class="badge bg-danger mb-2">REJEITADO</span>
+                                <p class="small text-muted mb-0">Houve um erro. Clique no botão de mensagem para ver o motivo e reenvie corrigido.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="text-muted opacity-25">
+
+                <!-- Seção 6: FAQ -->
+                <section id="duvidas" class="mb-5 pt-3">
+                    <h3 class="fw-bold text-primary mb-3"><i class='bx bx-help-circle'></i> 6. Dúvidas Comuns</h3>
+                    
+                    <div class="accordion accordion-flush" id="faqManual">
+                        <div class="accordion-item bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-white shadow-sm rounded mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <strong>Quanto tempo demora a análise?</strong>
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqManual">
+                                <div class="accordion-body pt-0 text-muted">
+                                    O prazo médio é de 7 a 15 dias úteis, dependendo da demanda da coordenação e do calendário acadêmico.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-white shadow-sm rounded mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <strong>Errei o cadastro e enviei. E agora?</strong>
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqManual">
+                                <div class="accordion-body pt-0 text-muted">
+                                    Se o status ainda for "Pendente", vá em "Minhas Atividades" e clique no ícone de <strong>Lixeira</strong> para excluir e cadastrar novamente, ou no <strong>Lápis</strong> para editar (se disponível).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão Flutuante pra voltar -->
+    <a href="#" class="btn btn-primary rounded-circle btn-lg position-fixed bottom-0 end-0 m-4 shadow btn-voltar-topo anime-start">
+        <i class='bx bx-chevron-up'></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                var elementos = document.querySelectorAll('.anime-start');
+                elementos.forEach(function(elemento) {
+                    elemento.classList.add('anime-end');
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
