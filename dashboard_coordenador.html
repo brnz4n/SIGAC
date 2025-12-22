@@ -74,7 +74,7 @@
                     <div class="card-body p-4 d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted small fw-bold text-uppercase mb-1">Pendentes de Análise</p>
-                            <h2 class="display-6 fw-bold text-dark mb-0">15</h2>
+                            <h2 class="display-6 fw-bold text-dark mb-0" id="countPendentes">0</h2>
                         </div>
                         <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-circle">
                             <i class='bx bx-time-five fs-2'></i>
@@ -87,7 +87,7 @@
                     <div class="card-body p-4 d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted small fw-bold text-uppercase mb-1">Alunos em Risco</p>
-                            <h2 class="display-6 fw-bold text-dark mb-0">8</h2>
+                            <h2 class="display-6 fw-bold text-dark mb-0" id="countRisco">0</h2>
                             <small class="text-danger" style="font-size: 0.75rem;">Horas insuficientes p/ colar grau</small>
                         </div>
                         <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle">
@@ -101,7 +101,7 @@
                     <div class="card-body p-4 d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted small fw-bold text-uppercase mb-1">Aprovados este mês</p>
-                            <h2 class="display-6 fw-bold text-dark mb-0">124</h2>
+                            <h2 class="display-6 fw-bold text-dark mb-0"id="countAprovados">124</h2>
                         </div>
                         <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle">
                             <i class='bx bx-check-double fs-2'></i>
@@ -137,7 +137,7 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-outline-primary w-100 fw-bold">Filtrar</button>
+                        <button class="btn btn-outline-primary w-100 fw-bold" onclick="carregarDashboardCoordenador()">Filtrar</button>
                     </div>
                 </div>
             </div>
@@ -153,82 +153,18 @@
                     <thead class="bg-light">
                         <tr>
                             <th class="ps-4">Aluno</th>
-                            <th>Atividade (Grupo > Tipo)</th>
+                            <th>Atividade (Tipo)</th>
                             <th>Carga Horária</th>
                             <th>Data Submissão</th>
                             <th class="text-center">Ação</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Item 1 -->
+                    <tbody id="tabelaAnalise">
+                        <!-- O JS PREENCHE AQUI -->
                         <tr>
-                            <td class="ps-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-size: 0.8rem;">MO</div>
-                                    <div>
-                                        <div class="fw-bold text-dark">Maria Oliveira</div>
-                                        <div class="text-muted small">Mat: 493021</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="badge bg-info text-dark bg-opacity-25 border border-info border-opacity-25 mb-1">Ensino</span>
-                                <div class="small fw-semibold">Monitoria</div>
-                            </td>
-                            <td class="fw-bold text-primary">60h</td>
-                            <td class="text-muted small">05/11/2025</td>
-                            <td class="text-center">
-                                <button class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#analiseModal"
-                                    data-aluno="Maria Oliveira"
-                                    data-grupo="Ensino"
-                                    data-tipo="Monitoria"
-                                    data-subtipo="Monitoria Voluntária"
-                                    data-descricao="Monitoria da disciplina de Algoritmos e Programação 1"
-                                    data-horas="60h"
-                                    data-data="05/11/2025"
-                                    data-acumulado="120"
-                                    data-limite="200"
-                                    data-anexo="#">
-                                    <i class='bx bx-search-alt'></i> Analisar
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Item 2 -->
-                        <tr>
-                            <td class="ps-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px; font-size: 0.8rem;">JS</div>
-                                    <div>
-                                        <div class="fw-bold text-dark">João Silva</div>
-                                        <div class="text-muted small">Mat: 510233</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="badge bg-warning text-dark bg-opacity-25 border border-warning border-opacity-25 mb-1">Extensão</span>
-                                <div class="small fw-semibold">Atividade Artístico-Cultural</div>
-                            </td>
-                            <td class="fw-bold text-primary">4h</td>
-                            <td class="text-muted small">03/11/2025</td>
-                            <td class="text-center">
-                                <button class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#analiseModal"
-                                    data-aluno="João Silva"
-                                    data-grupo="Extensão"
-                                    data-tipo="Atividade Artístico-Cultural"
-                                    data-subtipo="Espectador / Ouvinte"
-                                    data-descricao="Cinema: Filme 'A Rede Social'"
-                                    data-horas="4h"
-                                    data-data="03/11/2025"
-                                    data-acumulado="38"
-                                    data-limite="40"
-                                    data-anexo="#">
-                                    <i class='bx bx-search-alt'></i> Analisar
-                                </button>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+                                <p class="small mb-0">Buscando solicitações...</p>
                             </td>
                         </tr>
                     </tbody>
@@ -253,7 +189,10 @@
                 </div>
 
                 <div class="modal-body p-4">
-                    
+
+                    <!-- ID OCULTO para saber qual solicitação estamos tratando -->
+                    <input type="hidden" id="modalSolicitacaoId">
+
                     <div class="row g-4">
                         
                         <!-- Detalhes da Atividade -->
@@ -264,18 +203,15 @@
                             <div class="mb-3">
                                 <label class="small text-muted fw-bold">Classificação</label>
                                 <div class="bg-light p-2 rounded border d-flex align-items-center gap-2">
-                                    <span class="badge bg-secondary" id="modalGrupo">Grupo</span>
+                                    <span class="badge bg-secondary" id="modalGrupo">Geral</span>
                                     <i class='bx bx-chevron-right text-muted'></i>
                                     <span class="fw-semibold text-dark" id="modalTipo">Tipo</span>
-                                    <i class='bx bx-chevron-right text-muted'></i>
-                                    <span class="small text-muted" id="modalSubtipo">Subtipo</span>
                                 </div>
                             </div>
 
-                            <!-- Descrição -->
                             <div class="mb-3">
-                                <label class="small text-muted fw-bold">Descrição / Título</label>
-                                <p class="fw-bold text-dark mb-0 fs-5" id="modalDescricao">Descrição aqui</p>
+                                <label class="small text-muted fw-bold">Instituição</label>
+                                <p class="fw-bold text-dark mb-0 fs-5" id="modalInstituicao">Instituição</p>
                             </div>
 
                             <div class="row">
@@ -304,21 +240,20 @@
                                     <h6 class="fw-bold text-primary mb-3 text-uppercase small ls-1">Verificação de Limites</h6>
                                     
                                     <p class="small text-muted mb-2">Progresso do aluno neste Tipo de Atividade:</p>
-                                    
                                     <!--Área de progresso-->
                                     <div class="progress mb-2" style="height: 10px;">
-                                        <div id="modalProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 50%;"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%;"></div>
                                     </div>
                                     
                                     <div class="d-flex justify-content-between small fw-bold mb-4">
-                                        <span id="modalAcumuladoTexto">Acumulado: 0h</span>
-                                        <span id="modalLimiteTexto" class="text-danger">Limite: 0h</span>
+                                        <span>Acumulado: --</span>
+                                        <span class="text-danger">Limite: --</span>
                                     </div>
 
-                                    <div class="alert alert-warning small border-0 d-flex gap-2" id="alertLimite">
+                                    <div class="alert alert-warning small border-0 d-flex gap-2">
                                         <i class='bx bx-info-circle fs-4'></i>
                                         <div>
-                                            <strong>Atenção:</strong> Verifique se a carga horária solicitada ultrapassa o limite permitido pela resolução.
+                                            <strong>Atenção:</strong> Verifique a veracidade do documento antes de deferir.
                                         </div>
                                     </div>
 
@@ -350,51 +285,47 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end'));
-            }, 100);
+            setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
 
-            // Script para povoar o modal
-            const analiseModal = document.getElementById('analiseModal');
-            analiseModal.addEventListener('show.bs.modal', event => {
-                const button = event.relatedTarget;
-                
-                // Dados básicos
-                document.getElementById('modalAlunoNome').textContent = button.getAttribute('data-aluno');
-                document.getElementById('modalGrupo').textContent = button.getAttribute('data-grupo');
-                document.getElementById('modalTipo').textContent = button.getAttribute('data-tipo');
-                document.getElementById('modalSubtipo').textContent = button.getAttribute('data-subtipo');
-                document.getElementById('modalDescricao').textContent = button.getAttribute('data-descricao');
-                document.getElementById('modalHoras').textContent = button.getAttribute('data-horas');
-                document.getElementById('modalData').textContent = button.getAttribute('data-data');
-                document.getElementById('modalAnexo').href = button.getAttribute('data-anexo');
+            // Verifica Login
+            if (typeof verificarAutenticacao === 'function') {
+                verificarAutenticacao();
+            }
 
-                // Lógica de Limites (Simulada)
-                const acumulado = parseInt(button.getAttribute('data-acumulado'));
-                const limite = parseInt(button.getAttribute('data-limite'));
-                const horasSolicitadas = parseInt(button.getAttribute('data-horas'));
-                
-                // Calcula porcentagem
-                const porcentagem = (acumulado / limite) * 100;
-                
-                // Atualiza textos e barra
-                document.getElementById('modalAcumuladoTexto').textContent = `Acumulado: ${acumulado}h`;
-                document.getElementById('modalLimiteTexto').textContent = `Máx Permitido: ${limite}h`;
-                
-                const progressBar = document.getElementById('modalProgressBar');
-                progressBar.style.width = `${porcentagem}%`;
-                
-                // Muda cor se estiver perto do limite
-                if(porcentagem >= 90) {
-                    progressBar.classList.remove('bg-success');
-                    progressBar.classList.add('bg-danger');
-                } else {
-                    progressBar.classList.remove('bg-danger');
-                    progressBar.classList.add('bg-success');
-                }
-            });
+            // Carrega Dados Iniciais
+            if (typeof carregarDashboardCoordenador === 'function') {
+                carregarDashboardCoordenador();
+            }
+        });
+
+        // Script para passar dados para o modal ao clicar no botão da tabela
+        const analiseModal = document.getElementById('analiseModal');
+        analiseModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            
+            // Preenche o modal com dados vindos dos atributos data-* do botão
+            document.getElementById('modalSolicitacaoId').value = button.getAttribute('data-id');
+            document.getElementById('modalAlunoNome').textContent = button.getAttribute('data-aluno');
+            document.getElementById('modalTipo').textContent = button.getAttribute('data-tipo');
+            document.getElementById('modalInstituicao').textContent = button.getAttribute('data-instituicao');
+            document.getElementById('modalHoras').textContent = button.getAttribute('data-horas') + 'h';
+            document.getElementById('modalData').textContent = button.getAttribute('data-data');
+            
+            // Se tiver link de anexo (supondo que o back retorne path ou url)
+            const anexo = button.getAttribute('data-anexo');
+            if(anexo && anexo !== 'null') {
+                document.getElementById('modalAnexo').href = anexo; // Em prod, seria URL da imagem/pdf
+                document.getElementById('modalAnexo').classList.remove('disabled');
+            } else {
+                document.getElementById('modalAnexo').classList.add('disabled');
+            }
+            
+            // Limpa o campo de observação
+            document.getElementById('modalObservacao').value = '';
         });
     </script>
 

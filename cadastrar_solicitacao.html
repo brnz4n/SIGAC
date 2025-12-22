@@ -6,19 +6,16 @@
     <title>SIGAC - Nova Solicitação</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
     <link rel="stylesheet" href="style.css">
-
-     <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/favicon sigac ofc.png">
 </head>
 
 <body class="bg-light">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm py-2 anime-start">
         <div class="container-fluid px-5">
-            <a class="navbar-brand d-flex align-items-center" href="dashaluno.html">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <img src="imagens/favicon sigac ofc.png" alt="Logo SIGAC" height="70">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
@@ -45,9 +42,9 @@
                     </li>
                     <li class="nav-item d-none d-lg-block text-muted">|</li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-danger btn-sm rounded-pill px-4 fw-bold" href="index.html">
+                        <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-pill px-4 fw-bold">
                             <i class='bx bx-log-out'></i> Sair
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -56,7 +53,7 @@
 
     <div class="container mt-5 pt-5 pb-5">
         
-        <!--Botão Voltar -->
+        <!-- Cabeçalho -->
         <div class="row pt-4 mb-4 align-items-center anime-start" style="transition-delay: 0.1s;">
             <div class="col-auto">
                 <a href="dashboard_aluno.html" class="btn btn-outline-secondary rounded-circle" title="Voltar">
@@ -65,16 +62,16 @@
             </div>
             <div class="col">
                 <h3 class="fw-bold text-dark mb-0">Cadastrar Nova Atividade</h3>
-                <p class="text-muted mb-0">Preencha os dados abaixo para solicitar a creditação de horas.</p>
+                <p class="text-muted mb-0">Preencha os dados conforme o regulamento (Grupo > Tipo > Subtipo).</p>
             </div>
         </div>
 
-        <!-- FORMULÁRIO -->
         <div class="row anime-start" style="transition-delay: 0.2s;">
             <div class="col-12">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <!-- FORMULÁRIO CONECTADO -->
+                <form onsubmit="enviarSolicitacao(event)">
                     
-                    <!-- Dados do Aluno -->
+                    <!-- Card: Dados do Aluno (Preenchido Automaticamente) -->
                     <div class="card border-0 shadow-sm mb-4 bg-primary text-white">
                         <div class="card-body p-4">
                             <div class="row align-items-center">
@@ -82,170 +79,115 @@
                                     <i class='bx bxs-user-badge fs-1'></i>
                                 </div>
                                 <div class="col-md-11">
-                                    <h5 class="fw-bold mb-1">ANTONIO BRENO OLIVEIRA MAGALHAES</h5>
+                                    <!-- IDs adicionados para o JS preencher -->
+                                    <h5 class="fw-bold mb-1" id="headerNome">Carregando...</h5>
                                     <div class="d-flex gap-4 small opacity-75">
-                                        <span><i class='bx bx-id-card'></i> Matrícula: <strong>542638</strong></span>
-                                        <span><i class='bx bx-calendar'></i> Ingresso: <strong>2022.2</strong></span>
-                                        <span><i class='bx bx-book'></i> Semestre Atual: <strong>2025.2</strong></span>
+                                        <span><i class='bx bx-id-card'></i> Matrícula: <strong id="headerMatricula">...</strong></span>
+                                        <span><i class='bx bx-book'></i> Curso: <strong>Engenharia de Computação</strong></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Detalhes da Atividade -->
+                    <!-- Detalhes da Atividade (Nova Estrutura Hierárquica) -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
-                            <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-layer'></i> Detalhes da Atividade</h5>
+                            <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-layer'></i> Classificação da Atividade</h5>
                         </div>
                         <div class="card-body p-4">
                             <div class="row g-3">
-                                <!-- Tipo de Atividade -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold small">Tipo de Atividade <span class="text-danger">*</span></label>
-                                    <select class="form-select" required>
-                                        <option value="" selected disabled>Selecione o tipo...</option>
-                                        <option value="1">Atividade Artístico-Cultural ou Esportiva</option>
-                                        <option value="2">Curso de Extensão Universitária</option>
-                                        <option value="3">Evento de Extensão (Congresso, Seminário)</option>
-                                        <option value="4">Iniciação à Docência / Monitoria</option>
-                                        <option value="5">Iniciação à Pesquisa</option>
-                                        <option value="6">Estágio Não Obrigatório</option>
-                                        <option value="7">Vivência de Gestão (Centro Acadêmico/Empresa Jr)</option>
+                                
+                                <!-- Grupo -->
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small">1. Grupo <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="grupoAtividade" required onchange="atualizarTipos()">
+                                        <option value="" selected disabled>Selecione...</option>
+                                        <option value="ENSINO">Grupo I - Ensino</option>
+                                        <option value="PESQUISA">Grupo II - Pesquisa</option>
+                                        <option value="EXTENSAO">Grupo III - Extensão</option>
                                     </select>
                                 </div>
 
-                                    <!-- Tipo de Participação -->
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold small">Tipo de Participação <span class="text-danger">*</span></label>
-                                    <select class="form-select" required>
-                                        <option value="" selected disabled>Selecione a participação...</option>
-                                        <option value="membro">Membro da Equipe de Trabalho / Organizador</option>
-                                        <option value="ouvinte">Público Atendido / Ouvinte / Espectador</option>
-                                        <option value="palestrante">Palestrante / Ministrante</option>
+                                <!-- Tipo -->
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small">2. Tipo <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="tipoAtividade" required disabled onchange="atualizarSubtipos()">
+                                        <option value="" selected disabled>Selecione o Grupo primeiro</option>
                                     </select>
                                 </div>
 
-                                <!-- Título da Atividade -->
+                                <!-- Subtipo -->
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small">3. Subtipo <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="subtipoAtividade" required disabled>
+                                        <option value="" selected disabled>--</option>
+                                    </select>
+                                </div>
+
+                                <!-- Descrição -->
                                 <div class="col-12">
-                                    <label class="form-label fw-bold small">Título da Atividade <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-bold small">Descrição / Título do Evento <span class="text-danger">*</span></label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-light"><i class='bx bx-purchase-tag'></i></span>
-                                        <input type="text" class="form-control" placeholder="Ex: Curso de Python para Iniciantes" required>
+                                        <span class="input-group-text bg-light"><i class='bx bx-text'></i></span>
+                                        <input type="text" class="form-control" id="descricao" placeholder="Ex: Curso de Python - Alura" required>
                                     </div>
+                                    <div class="form-text">Informe o nome do curso, evento ou projeto específico.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!--Instituição e Local -->
+                    <!-- Instituição e Datas -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
-                            <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-buildings'></i> Instituição e Local</h5>
+                            <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-calendar'></i> Dados do Certificado</h5>
                         </div>
                         <div class="card-body p-4">
                             <div class="row g-3">
                                 
-                                <!-- Executada na Instituição? -->
-                                <div class="col-md-12 mb-2">
-                                    <label class="fw-bold small me-3">Atividade executada na própria Faculdade?</label>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="localExecucao" id="localSim" value="sim">
-                                        <label class="form-check-label" for="localSim">Sim</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="localExecucao" id="localNao" value="nao" checked>
-                                        <label class="form-check-label" for="localNao">Não</label>
-                                    </div>
-                                </div>
-
-                                <!-- Nome da Instituição -->
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold small">Nome da Instituição <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light"><i class='bx bxs-school'></i></span>
-                                        <input type="text" class="form-control" placeholder="Nome da empresa ou universidade" required>
-                                    </div>
+                                    <label class="form-label fw-bold small">Instituição Promotora <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="instituicao" placeholder="Ex: Udemy, UFC, Coursera" required>
                                 </div>
 
-                                <!-- País -->
-                                <div class="col-md-3">
-                                    <label class="form-label fw-bold small">País <span class="text-danger">*</span></label>
-                                    <select class="form-select">
-                                        <option value="BR" selected>Brasil</option>
-                                        <option value="US">Estados Unidos</option>
-                                        <option value="PT">Portugal</option>
-                                        <option value="XX">Outro</option>
-                                    </select>
-                                </div>
-
-                                <!-- CNPJ (Opcional) -->
-                                <div class="col-md-3">
-                                    <label class="form-label fw-bold small">CNPJ da Instituição</label>
-                                    <input type="text" class="form-control" placeholder="00.000.000/0000-00">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Período e Comprovante -->
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white py-3 border-bottom">
-                            <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-time-five'></i> Carga Horária e Comprovante</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="row g-3">
-                                
-                                <!-- Datas -->
                                 <div class="col-md-3">
                                     <label class="form-label fw-bold small">Data de Início <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" required>
+                                    <input type="date" class="form-control" id="dataInicio" required>
                                 </div>
+
                                 <div class="col-md-3">
                                     <label class="form-label fw-bold small">Data de Fim <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" required>
+                                    <input type="date" class="form-control" id="dataFim" required>
                                 </div>
 
-                                <!-- Carga Horária -->
-                                <div class="col-md-3">
-                                    <label class="form-label fw-bold small">Carga Horária Total <span class="text-danger">*</span></label>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small">Carga Horária do Certificado <span class="text-danger">*</span></label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" required>
+                                        <input type="number" class="form-control" id="cargaHoraria" placeholder="0" required min="1">
                                         <span class="input-group-text">horas</span>
                                     </div>
                                 </div>
 
-                                <!-- Horas a Utilizar -->
-                                <div class="col-md-3">
-                                    <label class="form-label fw-bold small">Horas a Aproveitar <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" required>
-                                        <span class="input-group-text">horas</span>
+                                <!-- Upload -->
+                                <div class="col-md-8">
+                                    <label class="form-label fw-bold small">Anexar Certificado (PDF/IMG) <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" id="arquivo" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <div class="form-text text-danger small">
+                                        <i class='bx bx-error-circle'></i> Certifique-se que o documento está legível e assinado.
                                     </div>
-                                </div>
-
-                                <!-- Upload de Arquivo -->
-                                <div class="col-12 mt-4">
-                                    <label class="form-label fw-bold small">Declaração de Participação (PDF, JPG ou PNG) <span class="text-danger">*</span></label>
-                                    <div class="input-group custom-file-button">
-                                        <input type="file" class="form-control" id="comprovante" accept=".pdf,.jpg,.jpeg,.png" required>
-                                        <label class="input-group-text" for="comprovante"><i class='bx bx-cloud-upload'></i> Escolher Arquivo</label>
-                                    </div>
-                                    <div class="form-text text-muted">Certifique-se que o documento está legível e contém assinatura digital ou carimbo.</div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
 
-                    <!-- Botões de Ação -->
+                    <!-- Botões -->
                     <div class="d-flex justify-content-end gap-2 pb-5">
-                        <a href="dashboard_aluno.html" class="btn btn-secondary rounded-pill px-4">
-                            Cancelar
-                        </a>
-                        <a href="cadastrar_solicitacao.html" class="btn btn-primary btn-lg shadow-sm rounded-pill px-3">
-                        CONFIRMAR SOLICITAÇÃO
-                        </a>
+                        <a href="dashboard_aluno.html" class="btn btn-secondary rounded-pill px-4">Cancelar</a>
+                        <button type="submit" class="btn btn-success rounded-pill px-5 fw-bold shadow-sm hover-scale">
+                            <i class='bx bx-send'></i> ENVIAR PARA ANÁLISE
+                        </button>
                     </div>
 
                 </form>
@@ -254,15 +196,71 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                var elementos = document.querySelectorAll('.anime-start');
-                elementos.forEach(function(elemento) {
-                    elemento.classList.add('anime-end');
-                });
-            }, 100); 
+            setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
+            
+            // Preenche o cabeçalho com dados do usuário logado (local)
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+            if(usuario) {
+                document.getElementById('headerNome').innerText = usuario.nome.toUpperCase();
+                document.getElementById('headerMatricula').innerText = usuario.login || usuario.matricula;
+            } else {
+                // Se não estiver logado, api.js vai redirecionar, mas por segurança:
+                document.getElementById('headerNome').innerText = "VISITANTE";
+            }
         });
+
+        // --- Lógica Simples para os Selects (Hierarquia) ---
+        function atualizarTipos() {
+            const grupo = document.getElementById('grupoAtividade').value;
+            const tipoSelect = document.getElementById('tipoAtividade');
+            const subtipoSelect = document.getElementById('subtipoAtividade');
+            
+            tipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
+            subtipoSelect.innerHTML = '<option value="" selected disabled>--</option>';
+            subtipoSelect.disabled = true;
+            tipoSelect.disabled = false;
+
+            if (grupo === 'ENSINO') {
+                tipoSelect.innerHTML += `
+                    <option value="MONITORIA">Monitoria</option>
+                    <option value="CURSO_LINGUA">Curso de Língua Estrangeira</option>`;
+            } else if (grupo === 'PESQUISA') {
+                tipoSelect.innerHTML += `
+                    <option value="INICIACAO_CIENTIFICA">Iniciação Científica</option>
+                    <option value="PUBLICACAO">Publicação de Artigo</option>`;
+            } else if (grupo === 'EXTENSAO') {
+                tipoSelect.innerHTML += `
+                    <option value="EVENTO">Participação em Evento</option>
+                    <option value="CURSO_EXTENSAO">Curso de Extensão</option>
+                    <option value="ESTAGIO">Estágio Não Obrigatório</option>`;
+            }
+        }
+
+        function atualizarSubtipos() {
+            const tipo = document.getElementById('tipoAtividade').value;
+            const subtipoSelect = document.getElementById('subtipoAtividade');
+            
+            subtipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
+            subtipoSelect.disabled = false;
+
+            // Exemplo de subtipos
+            if (tipo === 'EVENTO') {
+                subtipoSelect.innerHTML += `
+                    <option value="OUVINTE">Ouvinte</option>
+                    <option value="PALESTRANTE">Palestrante</option>
+                    <option value="ORGANIZADOR">Organizador</option>`;
+            } else if (tipo === 'MONITORIA') {
+                subtipoSelect.innerHTML += `
+                    <option value="COM_BOLSA">Com Bolsa</option>
+                    <option value="VOLUNTARIA">Voluntária</option>`;
+            } else {
+                subtipoSelect.innerHTML += `<option value="GERAL">Geral</option>`;
+            }
+        }
     </script>
 </body>
 </html>

@@ -14,15 +14,15 @@
 
 <body class="body-center" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh;">
 
+    <div class="container-fluid px-5">
+        <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2 anime-start" href="index.html">
+            <img src="imagens/logo_sigac.png" alt="logo_sigac" height="70"></i>
+        </a>
+ </div>
+ 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
-                
-                <div class="text-center mb-4 anime-start">
-                    <a href="index.html">
-                        <img src="imagens/favicon sigac ofc.png" alt="Logo SIGAC" height="70" class="drop-shadow">
-                    </a>
-                </div>
 
                 <!-- Card de Login -->
                 <div class="card card-glass border-0 p-4 anime-start" style="transition-delay: 0.1s;">
@@ -33,7 +33,8 @@
                             <p class="text-muted small">Insira suas credenciais para acessar o portal.</p>
                         </div>
 
-                        <form action="dashaluno.html" method="GET">
+                        <!-- Conectado a api.js -->
+                        <form onsubmit="login(event)">
                             
                             <div class="mb-3">
                                 <label for="matricula" class="form-label small fw-bold text-secondary ps-1">Login ou Matrícula</label>
@@ -88,6 +89,9 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="api.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {
@@ -112,5 +116,7 @@
             });
         });
     </script>
+
+
 </body>
 </html>
