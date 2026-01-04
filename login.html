@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGAC - Acesso</title>
-  
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
@@ -18,8 +18,8 @@
         <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2 anime-start" href="index.html">
             <img src="imagens/logo_sigac.png" alt="logo_sigac" height="70"></i>
         </a>
- </div>
- 
+</div>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
@@ -33,16 +33,15 @@
                             <p class="text-muted small">Insira suas credenciais para acessar o portal.</p>
                         </div>
 
-                        <!-- Conectado a api.js -->
                         <form onsubmit="login(event)">
-                            
-                            <div class="mb-3">
-                                <label for="matricula" class="form-label small fw-bold text-secondary ps-1">Login ou Matrícula</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-user'></i></span>
-                                    <input type="text" class="form-control border-start-0 ps-0" id="matricula" placeholder="Digite seu acesso" required>
-                                </div>
+    
+                        <div class="mb-3">
+                            <label for="email" class="form-label small fw-bold text-secondary ps-1">E-mail</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-user'></i></span>
+                                <input type="email" class="form-control border-start-0 ps-0" id="email" placeholder="nome@dominio.edu.br" required>
                             </div>
+                        </div>
 
                             <div class="mb-3">
                                 <label for="senha" class="form-label small fw-bold text-secondary ps-1">Senha</label>
@@ -55,18 +54,16 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center mb-4 small">
+                            <div class="mb-4 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember">
-                                    <label class="form-check-label text-muted" for="remember">Lembrar-me</label>
+                                    <input class="form-check-input" type="checkbox" id="lembrar">
+                                    <label class="form-check-label small text-muted" for="lembrar">Lembrar-me</label>
                                 </div>
-                                <a href="recuperacao.html" class="text-decoration-none fw-bold">Esqueci a senha</a>
+                                <a href="recuperacao.html" class="small text-decoration-none fw-bold">Esqueci a senha</a>
                             </div>
 
-                            <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold shadow-sm hover-scale">
-                                    ACESSAR SISTEMA
-                                </button>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary rounded-pill fw-bold shadow-sm py-2">ACESSAR SISTEMA</button>
                             </div>
 
                             <div class="text-center">
@@ -89,9 +86,10 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/aluno.js"></script>
     
-    <script src="api.js"></script>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {

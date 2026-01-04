@@ -196,71 +196,29 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="api.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/aluno.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Animação
             setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
             
-            // Preenche o cabeçalho com dados do usuário logado (local)
+            // Verifica se está logado
+            if (typeof verificarAutenticacao === 'function') verificarAutenticacao();
+            
+            // Preenche o cabeçalho (Nome do aluno)
             const usuario = JSON.parse(localStorage.getItem('usuario'));
             if(usuario) {
-                document.getElementById('headerNome').innerText = usuario.nome.toUpperCase();
-                document.getElementById('headerMatricula').innerText = usuario.login || usuario.matricula;
-            } else {
-                // Se não estiver logado, api.js vai redirecionar, mas por segurança:
-                document.getElementById('headerNome').innerText = "VISITANTE";
+                if(document.getElementById('headerNome')) document.getElementById('headerNome').innerText = usuario.nome.toUpperCase();
+                if(document.getElementById('headerMatricula')) document.getElementById('headerMatricula').innerText = usuario.login || usuario.matricula;
             }
         });
-
-        // --- Lógica Simples para os Selects (Hierarquia) ---
-        function atualizarTipos() {
-            const grupo = document.getElementById('grupoAtividade').value;
-            const tipoSelect = document.getElementById('tipoAtividade');
-            const subtipoSelect = document.getElementById('subtipoAtividade');
-            
-            tipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
-            subtipoSelect.innerHTML = '<option value="" selected disabled>--</option>';
-            subtipoSelect.disabled = true;
-            tipoSelect.disabled = false;
-
-            if (grupo === 'ENSINO') {
-                tipoSelect.innerHTML += `
-                    <option value="MONITORIA">Monitoria</option>
-                    <option value="CURSO_LINGUA">Curso de Língua Estrangeira</option>`;
-            } else if (grupo === 'PESQUISA') {
-                tipoSelect.innerHTML += `
-                    <option value="INICIACAO_CIENTIFICA">Iniciação Científica</option>
-                    <option value="PUBLICACAO">Publicação de Artigo</option>`;
-            } else if (grupo === 'EXTENSAO') {
-                tipoSelect.innerHTML += `
-                    <option value="EVENTO">Participação em Evento</option>
-                    <option value="CURSO_EXTENSAO">Curso de Extensão</option>
-                    <option value="ESTAGIO">Estágio Não Obrigatório</option>`;
-            }
-        }
-
-        function atualizarSubtipos() {
-            const tipo = document.getElementById('tipoAtividade').value;
-            const subtipoSelect = document.getElementById('subtipoAtividade');
-            
-            subtipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
-            subtipoSelect.disabled = false;
-
-            // Exemplo de subtipos
-            if (tipo === 'EVENTO') {
-                subtipoSelect.innerHTML += `
-                    <option value="OUVINTE">Ouvinte</option>
-                    <option value="PALESTRANTE">Palestrante</option>
-                    <option value="ORGANIZADOR">Organizador</option>`;
-            } else if (tipo === 'MONITORIA') {
-                subtipoSelect.innerHTML += `
-                    <option value="COM_BOLSA">Com Bolsa</option>
-                    <option value="VOLUNTARIA">Voluntária</option>`;
-            } else {
-                subtipoSelect.innerHTML += `<option value="GERAL">Geral</option>`;
-            }
-        }
     </script>
+
+    <footer class="text-center py-4 mt-5 border-top">
+        <p class="text-muted small mb-0">© 2025 SIGAC - Universidade Federal do Ceará (Campus Sobral).</p>
+    </footer>
 </body>
 </html>

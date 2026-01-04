@@ -158,31 +158,84 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Ações -->
+    <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold"><i class='bx bx-file'></i> Detalhes da Atividade</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="small text-muted fw-bold">ID da Solicitação</label>
+                            <div class="fs-5 fw-bold text-dark" id="detalheId">#000</div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <label class="small text-muted fw-bold d-block">Status Atual</label>
+                            <span class="badge bg-secondary rounded-pill px-3 fs-6" id="detalheStatus">Carregando...</span>
+                        </div>
+
+                        <hr class="text-muted my-2 opacity-25">
+
+                        <div class="col-md-12">
+                            <label class="small text-muted fw-bold">Tipo de Atividade</label>
+                            <div class="fs-6" id="detalheSubtipo">...</div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="small text-muted fw-bold">Descrição / Título</label>
+                            <div class="p-3 bg-light rounded border text-secondary" id="detalheObservacao">
+                                ...
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="small text-muted fw-bold">Data Início</label>
+                            <div class="fw-semibold" id="detalheInicio">--/--/----</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small text-muted fw-bold">Data Fim</label>
+                            <div class="fw-semibold" id="detalheFim">--/--/----</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small text-muted fw-bold">Carga Horária</label>
+                            <div class="fw-bold text-primary fs-5" id="detalheHoras">0h</div>
+                        </div>
+                        
+                        <div class="col-12 mt-4 pt-3 border-top">
+                            <div class="d-grid">
+                                <button id="btnDownload" type="button" class="btn btn-outline-primary fw-bold">
+                                    <i class='bx bx-download'></i> VISUALIZAR ARQUIVO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     
-    <!-- Importando API -->
-    <script src="api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/aluno.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                var elementos = document.querySelectorAll('.anime-start');
-                elementos.forEach(function(elemento) {
-                    elemento.classList.add('anime-end');
-                });
-            }, 100); 
-
-            // 1. Verifica se o aluno está logado
-            if (typeof verificarAutenticacao === 'function') {
-                verificarAutenticacao();
-            }
-
-            // 2. Busca os dados reais do banco para preencher a tela
-            if (typeof carregarDashboardAluno === 'function') {
+            if (typeof verificarAutenticacao === 'function') verificarAutenticacao();
+            setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
+            if (typeof verificarAutenticacao === 'function') verificarAutenticacao();
+            
+            if (typeof carregarDashboardAluno === 'function' && window.location.pathname.includes('dashboard')) {
                 carregarDashboardAluno();
-            } else {
-                console.warn('Função carregarDashboardAluno não encontrada. Verifique o api.js.');
             }
+            if (typeof carregarPerfil === 'function') carregarPerfil();
         });
     </script>
 
