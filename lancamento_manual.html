@@ -63,10 +63,8 @@
         <form onsubmit="lancamentoManual(event)">
             <div class="row anime-start" style="transition-delay: 0.2s;">
                 
-                <!-- COLUNA ESQUERDA -->
                 <div class="col-lg-8">
                     
-                    <!-- Passo 1: Buscar Aluno -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
                             <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-user-pin'></i> 1. Identificação do Discente</h5>
@@ -75,17 +73,14 @@
                             <label class="form-label small fw-bold text-muted">Buscar Aluno (Digite o nome ou matrícula)</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-search'></i></span>
-                                <!-- Input conectado ao Datalist -->
                                 <input type="text" class="form-control border-start-0 ps-0" id="buscaAluno" placeholder="Ex: Maria..." list="alunosList" required>
                                 <datalist id="alunosList">
-                                    <!-- Options serão preenchidas via JS -->
                                 </datalist>
                                 <button class="btn btn-primary px-4" type="button" onclick="buscarAlunoDetalhes()">Verificar</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Passo 2: Dados da Atividade -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
                             <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-layer'></i> 2. Detalhes da Atividade</h5>
@@ -110,8 +105,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small fw-bold text-muted">Subtipo <span class="text-danger">*</span></label>
-                                    <!-- No backend real, esse ID deve bater com o ID do subtipo no banco (1, 2, 3...) -->
-                                    <!-- Aqui usaremos valores fictícios para mapear no JS se necessário -->
                                     <select class="form-select" id="subtipoAtividade" required disabled>
                                         <option selected disabled value="">--</option>
                                     </select>
@@ -126,7 +119,6 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold text-muted">Instituição Promotora</label>
-                                    <!-- Em um cenário real, deveria ser um select de instituições cadastradas -->
                                     <input type="text" class="form-control" id="nomeInstituicao" placeholder="Ex: UFC Sobral" required>
                                 </div>
                                 <div class="col-md-3">
@@ -143,10 +135,8 @@
                     </div>
                 </div>
 
-                <!-- COLUNA DIREITA -->
                 <div class="col-lg-4">
-                    
-                    <!-- Passo 3: Carga Horária -->
+
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
                             <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-time'></i> 3. Cômputo de Horas</h5>
@@ -167,7 +157,6 @@
                         </div>
                     </div>
 
-                    <!-- Passo 4: Auditoria -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
                             <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-shield-quarter'></i> 4. Auditoria</h5>
@@ -185,7 +174,6 @@
                         </div>
                     </div>
 
-                    <!-- Botões -->
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-success rounded-pill py-3 fw-bold shadow-sm hover-scale">
                             <i class='bx bx-save'></i> EFETIVAR LANÇAMENTO
@@ -207,13 +195,11 @@
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
             
-            // Carregar lista de alunos para o Datalist
             if(typeof carregarListaAlunos === 'function') {
                 carregarListaAlunos();
             }
         });
 
-        // Reaproveitando a lógica de selects (Mesma do cadastro do aluno)
         function atualizarTipos() {
             const grupo = document.getElementById('grupoAtividade').value;
             const tipoSelect = document.getElementById('tipoAtividade');
@@ -237,7 +223,6 @@
             const subtipoSelect = document.getElementById('subtipoAtividade');
             subtipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
             subtipoSelect.disabled = false;
-            // Para simplificar, vou adicionar valores genéricos que seriam IDs no banco
             subtipoSelect.innerHTML += `<option value="1">Geral</option><option value="2">Voluntário</option>`;
         }
     </script>

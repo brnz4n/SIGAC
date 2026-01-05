@@ -53,7 +53,6 @@
 
     <div class="container mt-5 pt-5 pb-5">
         
-        <!-- Cabeçalho -->
         <div class="row pt-4 mb-4 align-items-center anime-start" style="transition-delay: 0.1s;">
             <div class="col-auto">
                 <a href="dashboard_aluno.html" class="btn btn-outline-secondary rounded-circle" title="Voltar">
@@ -68,10 +67,8 @@
 
         <div class="row anime-start" style="transition-delay: 0.2s;">
             <div class="col-12">
-                <!-- FORMULÁRIO CONECTADO -->
                 <form onsubmit="enviarSolicitacao(event)">
                     
-                    <!-- Card: Dados do Aluno (Preenchido Automaticamente) -->
                     <div class="card border-0 shadow-sm mb-4 bg-primary text-white">
                         <div class="card-body p-4">
                             <div class="row align-items-center">
@@ -79,7 +76,6 @@
                                     <i class='bx bxs-user-badge fs-1'></i>
                                 </div>
                                 <div class="col-md-11">
-                                    <!-- IDs adicionados para o JS preencher -->
                                     <h5 class="fw-bold mb-1" id="headerNome">Carregando...</h5>
                                     <div class="d-flex gap-4 small opacity-75">
                                         <span><i class='bx bx-id-card'></i> Matrícula: <strong id="headerMatricula">...</strong></span>
@@ -90,7 +86,6 @@
                         </div>
                     </div>
 
-                    <!-- Detalhes da Atividade (Nova Estrutura Hierárquica) -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
                             <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-layer'></i> Classificação da Atividade</h5>
@@ -98,7 +93,6 @@
                         <div class="card-body p-4">
                             <div class="row g-3">
                                 
-                                <!-- Grupo -->
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold small">1. Grupo <span class="text-danger">*</span></label>
                                     <select class="form-select" id="grupoAtividade" required onchange="atualizarTipos()">
@@ -109,7 +103,6 @@
                                     </select>
                                 </div>
 
-                                <!-- Tipo -->
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold small">2. Tipo <span class="text-danger">*</span></label>
                                     <select class="form-select" id="tipoAtividade" required disabled onchange="atualizarSubtipos()">
@@ -117,7 +110,6 @@
                                     </select>
                                 </div>
 
-                                <!-- Subtipo -->
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold small">3. Subtipo <span class="text-danger">*</span></label>
                                     <select class="form-select" id="subtipoAtividade" required disabled>
@@ -125,7 +117,6 @@
                                     </select>
                                 </div>
 
-                                <!-- Descrição -->
                                 <div class="col-12">
                                     <label class="form-label fw-bold small">Descrição / Título do Evento <span class="text-danger">*</span></label>
                                     <div class="input-group">
@@ -138,7 +129,6 @@
                         </div>
                     </div>
 
-                    <!-- Instituição e Datas -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white py-3 border-bottom">
                             <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-calendar'></i> Dados do Certificado</h5>
@@ -169,7 +159,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Upload -->
                                 <div class="col-md-8">
                                     <label class="form-label fw-bold small">Anexar Certificado (PDF/IMG) <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="arquivo" accept=".pdf,.jpg,.jpeg,.png" required>
@@ -182,7 +171,6 @@
                         </div>
                     </div>
 
-                    <!-- Botões -->
                     <div class="d-flex justify-content-end gap-2 pb-5">
                         <a href="dashboard_aluno.html" class="btn btn-secondary rounded-pill px-4">Cancelar</a>
                         <button type="submit" class="btn btn-success rounded-pill px-5 fw-bold shadow-sm hover-scale">
@@ -202,13 +190,10 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Animação
             setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
             
-            // Verifica se está logado
             if (typeof verificarAutenticacao === 'function') verificarAutenticacao();
             
-            // Preenche o cabeçalho (Nome do aluno)
             const usuario = JSON.parse(localStorage.getItem('usuario'));
             if(usuario) {
                 if(document.getElementById('headerNome')) document.getElementById('headerNome').innerText = usuario.nome.toUpperCase();

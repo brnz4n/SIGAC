@@ -62,14 +62,19 @@ function preencherTabelaAtividades(lista) {
 
     lista.forEach(item => {
         let badgeClass = 'bg-secondary';
-        if (item.status === 'DEFERIDO') badgeClass = 'bg-success';
-        else if (item.status === 'PENDENTE') badgeClass = 'bg-warning text-dark';
-        else if (item.status === 'INDEFERIDO') badgeClass = 'bg-danger';
+        const status = item.status ? item.status.toUpperCase() : 'DESCONHECIDO';
+
+        if (status === 'DEFERIDO' || status === 'APROVADO') badgeClass = 'bg-success';
+        else if (status === 'PENDENTE') badgeClass = 'bg-warning text-dark';
+        else if (status === 'INDEFERIDO' || status === 'REJEITADO') badgeClass = 'bg-danger';
+
+        const nomeSubtipo = item.nomeSubtipo || item.subtipoAtividade || 'Atividade';
+        const cargaHoraria = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;
 
         const linha = `
             <tr>
-                <td class="ps-4 fw-semibold">${item.subtipoAtividade || 'Atividade'}</td>
-                <td>${item.cargaHorariaTotal}h</td>
+                <td class="ps-4 fw-semibold">${nomeSubtipo}</td>
+                <td>${cargaHoraria}h</td>
                 <td>${formatarData(item.dataSolicitacao)}</td>
                 <td><span class="badge ${badgeClass} rounded-pill px-3">${item.status}</span></td>
                 <td class="pe-4 text-end">
@@ -81,30 +86,40 @@ function preencherTabelaAtividades(lista) {
 
         tbody.innerHTML += linha;
     });
-
 }
 
 function verDetalhesSolicitacao(id) {
-
     const item = cacheSolicitacoesAluno.find(s => s.id === id);
     if (!item) return;
 
-    document.getElementById('detalheId').innerText = `#${item.id}`;
-    document.getElementById('detalheSubtipo').innerText = item.subtipoAtividade || 'Geral';
-    document.getElementById('detalheObservacao').innerText = item.observacao || '---';
+    const nomeSubtipo = item.nomeSubtipo || item.subtipoAtividade || 'Não informado';
 
-    if(document.getElementById('detalheInicio')) document.getElementById('detalheInicio').innerText = item.dataInicio ? formatarData(item.dataInicio) : '-';
-    if(document.getElementById('detalheFim')) document.getElementById('detalheFim').innerText = item.dataFim ? formatarData(item.dataFim) : '-';
-    if(document.getElementById('detalheHoras')) document.getElementById('detalheHoras').innerText = `${item.cargaHorariaTotal} horas`;
+    const textoObservacao = item.nomeAtividade 
+                          ? `${item.nomeAtividade} - ${item.participacao || ''}`
+                          : (item.observacaoDiscente || item.observacao || '---');
+
+    const dataRef = item.dataSolicitacao ? formatarData(item.dataSolicitacao) : '-';
+    const textoHoras = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;
+    const idArquivo = item.comprovanteId || (item.comprovante ? item.comprovante.id : null);
+
+
+    document.getElementById('detalheId').innerText = `#${item.id}`;
+    document.getElementById('detalheSubtipo').innerText = nomeSubtipo;
+    document.getElementById('detalheObservacao').innerText = textoObservacao;
+
+    if(document.getElementById('detalheInicio')) document.getElementById('detalheInicio').innerText = dataRef;
+    if(document.getElementById('detalheFim')) document.getElementById('detalheFim').innerText = '-'; 
+    
+    if(document.getElementById('detalheHoras')) document.getElementById('detalheHoras').innerText = `${textoHoras} horas`;
 
     const statusEl = document.getElementById('detalheStatus');
     if (statusEl) {
         statusEl.innerText = item.status;
         statusEl.className = 'badge rounded-pill px-3 fs-6';
         
-        if (item.status === 'DEFERIDO' || item.status === 'APROVADO') {
+        if (['DEFERIDO', 'APROVADO'].includes(item.status)) {
             statusEl.classList.add('bg-success');
-        } else if (item.status === 'INDEFERIDO' || item.status === 'REJEITADO' || item.status === 'REPROVADO') {
+        } else if (['INDEFERIDO', 'REJEITADO', 'REPROVADO'].includes(item.status)) {
             statusEl.classList.add('bg-danger');
         } else {
             statusEl.classList.add('bg-warning', 'text-dark');
@@ -112,19 +127,19 @@ function verDetalhesSolicitacao(id) {
     }
 
     const btn = document.getElementById('btnDownload');
-    if (item.comprovante && item.comprovante.id) {
-        idComprovanteAtual = item.comprovante.id;
+    
+    if (idArquivo) {
+        idComprovanteAtual = idArquivo;
         btn.innerHTML = "<i class='bx bx-file'></i> VISUALIZAR ARQUIVO";
         btn.classList.remove('disabled');
         btn.onclick = baixarComprovante;
-
     } else {
         idComprovanteAtual = null;
         btn.classList.add('disabled');
         btn.innerHTML = "Sem comprovante";
         btn.onclick = null;
-
     }
+
     new bootstrap.Modal(document.getElementById('modalDetalhes')).show();
 }
 
@@ -134,7 +149,6 @@ async function baixarComprovante() {
     const btn = document.getElementById('btnDownload');
     const textoOriginal = btn.innerHTML;
     
-    // Feedback visual para o usuário não clicar mil vezes
     btn.innerHTML = "<span class='spinner-border spinner-border-sm'></span> Baixando...";
     btn.disabled = true;
 
@@ -367,7 +381,7 @@ async function confirmarAlteracaoSenha(btn) {
         const url = `${API_BASE_URL}/discentes/${usuario.matricula}/senha`;
         const response = await fetch(url, {
 
-            method: "PATCH",
+            method: "POST",
 
             headers: {
                 "Content-Type": "application/json",
@@ -411,7 +425,6 @@ async function confirmarAlteracaoSenha(btn) {
 }
 
 async function enviarSolicitacao(event) {
-
     event.preventDefault();
 
     const token = localStorage.getItem('token');
@@ -430,20 +443,19 @@ async function enviarSolicitacao(event) {
         return;
     }
 
+    const textoOriginal = btn.innerHTML;
     btn.innerHTML = "<span class='spinner-border spinner-border-sm'></span> Enviando...";
     btn.disabled = true;
 
     const payload = {
-        matriculaDiscente: usuario.matricula,
-        idSubtipoAtividade: parseInt(subtipoSelect.value),
-        idInstituicao: 1,
-        tipoParticipacao: "OUVINTE",
-        cargaHorariaTotal: parseInt(document.getElementById('cargaHoraria').value),
-        horasAproveitadas: 0,
+        matriculaDiscente: usuario.matricula, 
+        subtipoId: parseInt(subtipoSelect.value), 
+        instituicaoId: 1, 
+        participacao: "OUVINTE", 
+        cargaHorariaSolicitada: parseInt(document.getElementById('cargaHoraria').value), 
         dataInicio: document.getElementById('dataInicio').value,
         dataFim: document.getElementById('dataFim').value,
-        observacao: document.getElementById('descricao').value
-
+        observacaoDiscente: document.getElementById('descricao').value 
     };
 
     try {
@@ -457,15 +469,14 @@ async function enviarSolicitacao(event) {
         });
 
         if (responseSolicitacao.ok) {
-
             const solicitacaoCriada = await responseSolicitacao.json();
             const idSolicitacao = solicitacaoCriada.id;
 
             const formData = new FormData();
             formData.append("file", arquivoInput.files[0]);
+            
             const responseUpload = await fetch(`${API_BASE_URL}/comprovantes/${idSolicitacao}`, {
                 method: "POST",
-
                 headers: {
                     "Authorization": `Bearer ${token}`
                 },
@@ -475,15 +486,26 @@ async function enviarSolicitacao(event) {
             if (responseUpload.ok) {
                 alert("Solicitação enviada com sucesso!");
                 window.location.href = "dashboard_aluno.html";
-
             } else {
                 alert("Solicitação criada, mas houve erro ao enviar o arquivo.");
                 window.location.href = "dashboard_aluno.html";
             }
 
         } else {
-            const erroText = await responseSolicitacao.text();
-            alert("Erro ao criar solicitação: " + erroText);
+            const textoResposta = await responseSolicitacao.text();
+            
+            try {
+                const erroJson = JSON.parse(textoResposta);
+                
+                if (erroJson.errors) {
+                    const listaErros = erroJson.errors.map(e => `- ${e.field}: ${e.defaultMessage}`).join("\n");
+                    alert("Corrija os seguintes erros:\n" + listaErros);
+                } else {
+                    alert("Erro: " + (erroJson.message || textoResposta));
+                }
+            } catch (e) {
+                alert("Erro ao criar solicitação: " + textoResposta);
+            }
         }
 
     } catch (error) {
@@ -491,19 +513,28 @@ async function enviarSolicitacao(event) {
         alert("Erro de conexão.");
 
     } finally {
-        btn.innerHTML = "<i class='bx bx-send'></i> ENVIAR PARA ANÁLISE";
+        btn.innerHTML = textoOriginal || "<i class='bx bx-send'></i> ENVIAR PARA ANÁLISE";
         btn.disabled = false;
     }
 }
 
 function atualizarResumoDashboard(lista, usuario) {
+    
+    const atividadesAprovadas = lista.filter(i => {
+        const s = i.status ? i.status.toUpperCase() : '';
+        return s === 'DEFERIDO' || s === 'DEFERIDA' || s === 'APROVADO';
+    });
 
-    const totalAprovadas = lista
+    const totalAprovadas = atividadesAprovadas.reduce((acc, curr) => {
+        const horas = curr.cargaHorariaAproveitada || curr.horasAproveitadas || curr.cargaHorariaSolicitada || 0;
+        
+        return acc + parseInt(horas);
+    }, 0);
 
-        .filter(i => i.status === 'DEFERIDO' || i.status === 'APROVADO')
-        .reduce((acc, curr) => acc + (curr.horasAproveitadas || 0), 0);
-
-    const totalPendentes = lista.filter(i => i.status === 'PENDENTE').length;
+    const totalPendentes = lista.filter(i => {
+        const s = i.status ? i.status.toUpperCase() : '';
+        return s === 'PENDENTE' || s === 'EM ANÁLISE';
+    }).length;
 
     if(document.getElementById('totalHoras')) {
         document.getElementById('totalHoras').innerText = `${totalAprovadas} h`;
@@ -514,12 +545,22 @@ function atualizarResumoDashboard(lista, usuario) {
     }
 
     const meta = usuario.totalHorasComplementares || 200;
-    const porcentagem = Math.min((totalAprovadas / meta) * 100, 100);
-    const barra = document.getElementById('barraProgresso');
+    let porcentagem = (totalAprovadas / meta) * 100;
+    
+    if (porcentagem > 100) porcentagem = 100;
 
+    const barra = document.getElementById('barraProgresso');
     if(barra) {
         barra.style.width = `${porcentagem}%`;
         barra.innerText = `${Math.floor(porcentagem)}%`;
+        
+        if(porcentagem >= 100) {
+            barra.classList.remove('bg-primary');
+            barra.classList.add('bg-success');
+        } else {
+            barra.classList.add('bg-primary');
+            barra.classList.remove('bg-success');
+        }
     }
 }
 
@@ -663,4 +704,25 @@ function finalizarModoEdicao() {
     }
 
     if(btnCancelar) btnCancelar.remove();
+}
+
+function mostrarJustificativa(id) {
+    const lista = (typeof listaAtual !== 'undefined') ? listaAtual : (typeof cacheSolicitacoesAluno !== 'undefined' ? cacheSolicitacoesAluno : []);
+    
+    const item = lista.find(s => s.id === id);
+    
+    if (item) {
+        const justificativa = item.observacaoResponsavel || "Nenhuma justificativa informada.";
+        
+        const modalBody = document.querySelector('#modalJustificativa .modal-body .alert');
+        if (modalBody) {
+            modalBody.innerText = justificativa;
+        }
+
+        const modalEl = document.getElementById('modalJustificativa');
+        if(modalEl) {
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        }
+    }
 }

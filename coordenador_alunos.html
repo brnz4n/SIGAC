@@ -42,8 +42,8 @@
                 
                 <div class="d-flex align-items-center gap-3 text-white">
                     <div class="text-end d-none d-lg-block">
-                        <p class="mb-0 small fw-bold">Prof. Fernando</p>
-                        <p class="mb-0 small opacity-75" style="font-size: 0.75rem;">Coordenador</p>
+                        <p class="mb-0 small fw-bold">Prof. Fernando Rodrigues</p>
+                        <p class="mb-0 small opacity-75" style="font-size: 0.75rem;">Coordenador Eng. Computação</p>
                     </div>
                     <a href="index.html" class="btn btn-outline-light btn-sm rounded-pill px-3">Sair</a>
                 </div>
@@ -51,10 +51,7 @@
         </div>
     </nav>
 
-    <!-- CONTEÚDO PRINCIPAL -->
     <div class="container mt-5 pt-5 pb-5">
-        
-        <!-- Cabeçalho -->
         <div class="row pt-4 mb-4 align-items-center anime-start" style="transition-delay: 0.1s;">
             <div class="col-auto">
                 <a href="dashboard_coordenador.html" class="btn btn-outline-secondary rounded-circle" title="Voltar">
@@ -66,13 +63,12 @@
                 <p class="text-muted mb-0">Monitore o cumprimento da carga horária complementar de cada aluno.</p>
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                <button class="btn btn-outline-primary rounded-pill px-4 fw-bold">
-                    <i class='bx bx-export'></i> Exportar Lista (XLS)
+                <button onclick="exportarRelatorio()" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                    <i class='bx bx-export'></i> Exportar Lista (CSV)
                 </button>
             </div>
         </div>
 
-        <!-- Barra de Filtros Avançados -->
         <div class="card border-0 shadow-sm mb-4 anime-start" style="transition-delay: 0.2s;">
             <div class="card-body p-3">
                 <div class="row g-2">
@@ -105,7 +101,6 @@
             </div>
         </div>
 
-        <!-- Tabela de Alunos -->
         <div class="card border-0 shadow-sm mb-5 anime-start" style="transition-delay: 0.3s;">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
@@ -119,8 +114,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                        <!-- Aluno 1: Regular -->
+
                         <tr>
                             <td class="ps-4">
                                 <div class="d-flex align-items-center">
@@ -156,7 +150,6 @@
                             </td>
                         </tr>
 
-                        <!-- Aluno 2: Em risco -->
                         <tr class="table-danger bg-opacity-10">
                             <td class="ps-4">
                                 <div class="d-flex align-items-center">
@@ -195,7 +188,6 @@
                             </td>
                         </tr>
 
-                        <!-- Aluno 3: Concluído -->
                         <tr>
                             <td class="ps-4">
                                 <div class="d-flex align-items-center">
@@ -231,7 +223,6 @@
                             </td>
                         </tr>
 
-                        <!-- Aluno 4: Regular -->
                         <tr>
                             <td class="ps-4">
                                 <div class="d-flex align-items-center">
@@ -271,7 +262,6 @@
                 </table>
             </div>
 
-            <!-- Paginação -->
             <div class="card-footer bg-white border-0 py-3">
                 <nav aria-label="Navegação">
                     <ul class="pagination justify-content-center mb-0">
@@ -292,6 +282,10 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/coordenador_alunos.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {

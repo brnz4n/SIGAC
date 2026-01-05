@@ -13,7 +13,6 @@
 
 <body class="bg-light">
 
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm py-2 anime-start">
         <div class="container-fluid px-5">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
@@ -43,7 +42,6 @@
                     </li>
                     <li class="nav-item d-none d-lg-block text-muted">|</li>
                     <li class="nav-item">
-                        <!-- Botão de Sair chama a função logout do js -->
                         <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-pill px-4 fw-bold">
                             <i class='bx bx-log-out'></i> Sair
                         </button>
@@ -64,30 +62,25 @@
 
         <div class="row g-4 mb-5 anime-start" style="transition-delay: 0.2s;">
           
-            <!-- Card Horas -->
             <div class="col-md-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body p-4">
                         <h5 class="card-title fw-bold mb-3">Total de Horas Aprovadas</h5>
                         <div class="d-flex justify-content-between align-items-end mb-2">
-                            <!-- ID: totalHoras (Atualizado pelo JS) -->
                             <span class="display-6 fw-bold text-dark" id="totalHoras">0 h</span>
                             <span class="text-muted">Meta: 200 h</span>
                         </div>
                         <div class="progress">
-                            <!-- ID: barraProgresso (Atualizado pelo JS) -->
                             <div class="progress-bar bg-primary" id="barraProgresso" role="progressbar" style="width: 0%;">0%</div>
                         </div>
                     </div>
                 </div>
             </div>
           
-            <!-- Card Pendentes -->
             <div class="col-md-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body p-4 text-center d-flex flex-column justify-content-center align-items-center">
                         <h5 class="card-title fw-bold mb-0">Atividades em Análise</h5>
-                        <!-- ID: totalPendentes (Atualizado pelo JS) -->
                         <h2 class="display-3 fw-bold text-dark my-2" id="totalPendentes">0</h2>
                         <span class="text-secondary px-3 py-2 rounded-pill">
                             Submissões aguardando avaliação
@@ -122,7 +115,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- O JS vai preencher isso aqui -->
                             <tr>
                                 <td colspan="5" class="text-center py-4 text-muted">
                                     <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
@@ -137,7 +129,6 @@
 
     </div>
 
-    <!-- MODAL DE JUSTIFICATIVA (Para ver o motivo da rejeição) -->
     <div class="modal fade" id="modalJustificativa" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
@@ -147,7 +138,6 @@
                 </div>
                 <div class="modal-body p-4">
                     <div class="alert alert-light border border-danger-subtle text-danger">
-                        <!-- O texto aqui será substituído dinamicamente -->
                         Sem justificativa disponível.
                     </div>
                 </div>
@@ -158,7 +148,6 @@
         </div>
     </div>
 
-    <!-- Ações -->
     <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content border-0 shadow">
                 <div class="modal-header bg-primary text-white">

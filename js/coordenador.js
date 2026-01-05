@@ -1,16 +1,3 @@
-const LIMITES_POR_TIPO = {
-    "Monitoria": 96,
-    "Curso de Extensão ou Minicurso": 16,
-    "Pesquisa": 96,
-    "Organização de Eventos": 32,
-    "Ouvinte em Palestras/Seminários": 8,
-    "Publicação de Artigo": 96,
-    "Estágio": 32,
-    "Desenvolvimento de Hardware/Software": 96,
-    "Esportes": 80
-};
-
-// Variáveis Globais
 let listaGlobalCache = [];
 let cacheSolicitacoesCoord = [];
 let idSolicitacaoAnaliseAtual = null;
@@ -30,20 +17,18 @@ async function carregarDashboardCoordenador() {
     try {
         const response = await fetch(`${API_BASE_URL}/solicitacoes`, {
             method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
+            headers: { "Authorization": `Bearer ${token}` }
         });
 
         if (response.ok) {
             const listaCompleta = await response.json();
-            
             listaGlobalCache = listaCompleta;
 
             calcularEstatisticasGerais(listaCompleta);
 
             let listaParaTabela = listaCompleta;
-            if (statusFiltro !== 'TODOS') {
+            
+            if (statusFiltro && statusFiltro !== 'TODOS') {
                 listaParaTabela = listaCompleta.filter(item => item.status === statusFiltro);
             }
             
@@ -59,24 +44,33 @@ async function carregarDashboardCoordenador() {
 
             listaParaTabela.forEach(item => {
                 let dataFormatada = '-';
-                if (item.dataInicio) dataFormatada = new Date(item.dataInicio).toLocaleDateString('pt-BR');
-                else if (item.dataSolicitacao) dataFormatada = new Date(item.dataSolicitacao).toLocaleDateString('pt-BR');
+                if (item.dataSolicitacao) {
+                    dataFormatada = new Date(item.dataSolicitacao).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+                }
 
                 let badgeClass = 'bg-light text-secondary border';
-                if(item.status === 'DEFERIDO') badgeClass = 'bg-success text-white';
-                if(item.status === 'INDEFERIDO') badgeClass = 'bg-danger text-white';
-                if(item.status === 'PENDENTE') badgeClass = 'bg-warning text-dark';
+                const status = item.status ? item.status.toUpperCase() : 'DESCONHECIDO';
+                
+                if(status === 'DEFERIDO' || status === 'APROVADO') badgeClass = 'bg-success text-white';
+                if(status === 'INDEFERIDO' || status === 'REJEITADO') badgeClass = 'bg-danger text-white';
+                if(status === 'PENDENTE') badgeClass = 'bg-warning text-dark';
+
+                const cargaHoraria = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;
+                const nomeAtividade = item.nomeAtividade || 'Atividade Geral';
+                const nomeSubtipo = item.nomeSubtipo || item.subtipoAtividade || '---';
+                const participacao = item.participacao ? `(${item.participacao})` : '';
 
                 const linha = `
                     <tr>
                         <td class="ps-4">
                             <div class="fw-bold text-dark">${item.nomeDiscente || 'Aluno'}</div>
-                            <div class="small text-muted">${item.matriculaDiscente || '---'}</div>
+                            <div class="small text-muted">${item.matriculaDiscente || ''}</div>
                         </td>
                         <td>
-                            <span class="badge ${badgeClass} mb-1">${item.subtipoAtividade || 'Geral'}</span>
+                            <div class="fw-semibold text-dark">${nomeAtividade}</div>
+                            <div class="small text-muted">${nomeSubtipo} ${participacao}</div>
                         </td>
-                        <td class="fw-bold text-primary">${item.cargaHorariaTotal}h</td>
+                        <td class="fw-bold text-primary">${cargaHoraria}h</td>
                         <td>${dataFormatada}</td>
                         <td class="text-center">
                             <button class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm" onclick="abrirModalAnalise(${item.id})">
@@ -102,12 +96,12 @@ function calcularEstatisticasGerais(lista) {
     
     const hoje = new Date();
     const aprovadosMes = lista.filter(i => {
-        if (i.status !== 'DEFERIDO') return false;
+        if (i.status !== 'DEFERIDO' && i.status !== 'APROVADO') return false;
         const dataRef = i.dataSolicitacao ? new Date(i.dataSolicitacao) : new Date();
         return dataRef.getMonth() === hoje.getMonth() && dataRef.getFullYear() === hoje.getFullYear();
     }).length;
 
-    const rejeitados = lista.filter(i => i.status === 'INDEFERIDO').length;
+    const rejeitados = lista.filter(i => i.status === 'INDEFERIDO' || i.status === 'REJEITADO').length;
 
     if(document.getElementById('countPendentes')) document.getElementById('countPendentes').innerText = pendentes;
     if(document.getElementById('countAprovados')) document.getElementById('countAprovados').innerText = aprovadosMes;
@@ -126,21 +120,34 @@ function abrirModalAnalise(id) {
     idSolicitacaoAnaliseAtual = item.id;
     
     document.getElementById('modalAlunoNome').innerText = item.nomeDiscente || "Aluno";
-    document.getElementById('modalGrupo').innerText = "Atividade";
-    document.getElementById('modalTipo').innerText = item.subtipoAtividade || "---";
-    document.getElementById('modalInstituicao').innerText = item.nomeInstituicao || "---";
-    document.getElementById('modalHoras').innerText = `${item.cargaHorariaTotal}h`;
     
-    let dataRealizacao = '--/--/----';
-    if(item.dataInicio) dataRealizacao = new Date(item.dataInicio).toLocaleDateString('pt-BR');
-    else if(item.dataSolicitacao) dataRealizacao = new Date(item.dataSolicitacao).toLocaleDateString('pt-BR');
-    document.getElementById('modalData').innerText = dataRealizacao;
-
-    calcularProgressoAluno(item.matriculaDiscente, item.subtipoAtividade);
+    const atividade = item.nomeAtividade || "Geral";
+    const subtipo = item.nomeSubtipo || item.subtipoAtividade || "---";
+    document.getElementById('modalGrupo').innerText = atividade;
+    document.getElementById('modalTipo').innerText = subtipo;
+    
+    const instituicao = item.nomeInstituicao || "Universidade Federal do Ceará"; 
+    const participacao = item.participacao ? ` - ${item.participacao}` : "";
+    document.getElementById('modalInstituicao').innerText = instituicao + participacao;
+    
+    const horas = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;
+    document.getElementById('modalHoras').innerText = `${horas}h`;
+    
+    let textoData = '---';
+    if(item.dataInicio && item.dataFim) {
+        const inicio = new Date(item.dataInicio).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+        const fim = new Date(item.dataFim).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+        textoData = `${inicio} até ${fim}`;
+    } else if(item.dataSolicitacao) {
+        textoData = "Submetido em: " + new Date(item.dataSolicitacao).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+    }
+    document.getElementById('modalData').innerText = textoData;
 
     const btnAnexo = document.getElementById('modalAnexo');
-    if (item.comprovante && item.comprovante.id) {
-        idComprovanteAnaliseAtual = item.comprovante.id;
+    const idAnexo = item.comprovanteId || (item.comprovante ? item.comprovante.id : null);
+
+    if (idAnexo) {
+        idComprovanteAnaliseAtual = idAnexo;
         btnAnexo.classList.remove('disabled');
         btnAnexo.innerHTML = "<i class='bx bxs-file-pdf'></i> Visualizar Certificado (Anexo)";
         btnAnexo.onclick = (e) => {
@@ -159,46 +166,13 @@ function abrirModalAnalise(id) {
     new bootstrap.Modal(document.getElementById('analiseModal')).show();
 }
 
-function calcularProgressoAluno(matricula, subtipo) {
-
-    const limiteHoras = LIMITES_POR_TIPO[subtipo] || 100;
-    
-    const solicitacoesDoAluno = listaGlobalCache.filter(req =>
-        req.matriculaDiscente === matricula &&
-        req.subtipoAtividade === subtipo &&
-        req.status === 'DEFERIDO'
-    );
-
-    const horasAcumuladas = solicitacoesDoAluno.reduce((acc, curr) => acc + (curr.cargaHorariaTotal || 0), 0);
-
-    const lblAcumulado = document.getElementById('lblAcumulado');
-    const lblLimite = document.getElementById('lblLimite');
-    const barra = document.getElementById('barraProgresso');
-
-    if (lblAcumulado) lblAcumulado.innerText = `Acumulado: ${horasAcumuladas}h`;
-    if (lblLimite) lblLimite.innerText = `Limite: ${limiteHoras}h`;
-    
-    if (barra) {
-        const porcentagem = Math.min((horasAcumuladas / limiteHoras) * 100, 100);
-        barra.style.width = `${porcentagem}%`;
-        
-        if (porcentagem >= 100) {
-            barra.className = 'progress-bar bg-success';
-        } else if (porcentagem > 80) {
-            barra.className = 'progress-bar bg-warning';
-        } else {
-            barra.className = 'progress-bar bg-primary';
-        }
-    }
-}
-
 async function visualizarComprovanteCoordenador(id) {
     const btn = document.getElementById('modalAnexo');
     const txtOriginal = btn.innerHTML;
     btn.innerHTML = "Carregando...";
     
     const novaAba = window.open('', '_blank');
-    if(novaAba) novaAba.document.write('Carregando...');
+    if(novaAba) novaAba.document.write('<html><body><h3>Carregando documento...</h3></body></html>');
 
     try {
         const token = localStorage.getItem('token');
@@ -229,22 +203,35 @@ async function avaliarSolicitacao(novoStatus) {
     
     if (!idSolicitacaoAnaliseAtual) return;
 
-    if (novoStatus === 'INDEFERIDO' && !obs.trim()) {
-        alert("Justificativa obrigatória para indeferimento.");
+    const itemAtual = listaGlobalCache.find(i => i.id === idSolicitacaoAnaliseAtual);
+    const horasSolicitadas = itemAtual ? (itemAtual.cargaHorariaSolicitada || itemAtual.cargaHorariaTotal || 0) : 0;
+
+    let statusBackend = novoStatus;
+    if (novoStatus === 'DEFERIDO') statusBackend = 'DEFERIDA';
+    if (novoStatus === 'INDEFERIDO') statusBackend = 'INDEFERIDA';
+
+    if (statusBackend === 'INDEFERIDA' && !obs.trim()) {
+        alert("É obrigatório escrever uma justificativa para indeferir.");
         document.getElementById('modalObservacao').focus();
         return;
     }
 
-    if(!confirm(`Confirma ${novoStatus} esta solicitação?`)) return;
+    if(!confirm(`Confirma a atualização da solicitação para ${novoStatus}?`)) return;
+
+    const horasAproveitadas = (statusBackend === 'DEFERIDA') ? horasSolicitadas : 0;
 
     try {
         const response = await fetch(`${API_BASE_URL}/solicitacoes/${idSolicitacaoAnaliseAtual}/status`, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ status: novoStatus, observacaoResponsavel: obs })
+            body: JSON.stringify({ 
+                status: statusBackend, 
+                observacaoResponsavel: obs,
+                cargaHorariaAproveitada: horasAproveitadas
+            })
         });
 
         if (response.ok) {
@@ -252,10 +239,12 @@ async function avaliarSolicitacao(novoStatus) {
             const modal = bootstrap.Modal.getInstance(modalEl);
             modal.hide();
 
-            alert(`Solicitação ${novoStatus} com sucesso!`);
+            alert(`Solicitação atualizada com sucesso! (${horasAproveitadas}h creditadas)`);
             carregarDashboardCoordenador();
         } else {
-            alert("Erro ao atualizar status.");
+            const erroTexto = await response.text();
+            console.error("Erro Backend:", erroTexto);
+            alert("Erro ao atualizar status: " + erroTexto);
         }
     } catch (error) {
         console.error(error);

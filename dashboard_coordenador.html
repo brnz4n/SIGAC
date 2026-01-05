@@ -67,7 +67,6 @@
             </div>
         </div>
 
-        <!-- Cards de Estatísticas -->
         <div class="row g-4 mb-4 anime-start" style="transition-delay: 0.2s;">
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm border-start border-4 border-warning h-100">
@@ -111,7 +110,6 @@
             </div>
         </div>
 
-        <!-- Barra de Filtros -->
         <div class="card border-0 shadow-sm mb-4 anime-start" style="transition-delay: 0.3s;">
             <div class="card-body p-3">
                 <div class="row g-2">
@@ -147,7 +145,6 @@
             </div>
         </div>
 
-        <!-- Tabela de Análise -->
         <div class="card border-0 shadow-sm mb-5 anime-start" style="transition-delay: 0.4s;">
             <div class="card-header bg-white py-3 border-0">
                 <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-list-ul'></i> Fila de Solicitações</h5>
@@ -164,7 +161,6 @@
                         </tr>
                     </thead>
                     <tbody id="tabelaAnalise">
-                        <!-- O JS PREENCHE AQUI -->
                         <tr>
                             <td colspan="5" class="text-center py-5 text-muted">
                                 <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
@@ -178,12 +174,10 @@
 
     </div>
 
-    <!-- MODAL DE ANÁLISE -->
     <div class="modal fade" id="analiseModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content border-0 shadow">
-                
-                <!-- Header -->
+
                 <div class="modal-header bg-primary text-white">
                     <div>
                         <h5 class="modal-title fw-bold" id="modalAlunoNome">Nome do Aluno</h5>
@@ -194,81 +188,47 @@
 
                 <div class="modal-body p-4">
 
-                    <!-- ID OCULTO para saber qual solicitação estamos tratando -->
                     <input type="hidden" id="modalSolicitacaoId">
 
                     <div class="row g-4">
-                        
-                        <!-- Detalhes da Atividade -->
-                        <div class="col-md-7">
-                            <h6 class="fw-bold text-primary mb-3 text-uppercase small ls-1">Dados da Atividade</h6>
-                            
-                            <!-- Hierarquia Grupo > Tipo > Subtipo -->
-                            <div class="mb-3">
-                                <label class="small text-muted fw-bold">Classificação</label>
-                                <div class="bg-light p-2 rounded border d-flex align-items-center gap-2">
-                                    <span class="badge bg-secondary" id="modalGrupo">Geral</span>
-                                    <i class='bx bx-chevron-right text-muted'></i>
-                                    <span class="fw-semibold text-dark" id="modalTipo">Tipo</span>
-                                </div>
-                            </div>
+    
+    <div class="col-12">
+        <h6 class="fw-bold text-primary mb-3 text-uppercase small ls-1">Dados da Atividade</h6>
+        
+        <div class="mb-3">
+            <label class="small text-muted fw-bold">Classificação</label>
+            <div class="bg-light p-3 rounded border d-flex align-items-center gap-2">
+                <span class="badge bg-secondary" id="modalGrupo">Geral</span>
+                <i class='bx bx-chevron-right text-muted'></i>
+                <span class="fw-semibold text-dark" id="modalTipo">Tipo</span>
+            </div>
+        </div>
 
-                            <div class="mb-3">
-                                <label class="small text-muted fw-bold">Instituição</label>
-                                <p class="fw-bold text-dark mb-0 fs-5" id="modalInstituicao">Instituição</p>
-                            </div>
+        <div class="mb-3">
+            <label class="small text-muted fw-bold">Instituição</label>
+            <p class="fw-bold text-dark mb-0 fs-5" id="modalInstituicao">Instituição</p>
+        </div>
 
-                            <div class="row">
-                                <div class="col-6">
-                                    <label class="small text-muted fw-bold">Data de Realização</label>
-                                    <p class="fw-semibold" id="modalData">--/--/----</p>
-                                </div>
-                                <div class="col-6">
-                                    <label class="small text-muted fw-bold">Carga Horária Solicitada</label>
-                                    <p class="fw-bold text-primary fs-5" id="modalHoras">0h</p>
-                                </div>
-                            </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label class="small text-muted fw-bold">Data de Realização / Submissão</label>
+                <p class="fw-semibold" id="modalData">--/--/----</p>
+            </div>
+            <div class="col-6">
+                <label class="small text-muted fw-bold">Carga Horária Solicitada</label>
+                <p class="fw-bold text-primary fs-5" id="modalHoras">0h</p>
+            </div>
+        </div>
 
-                            <!-- Botão Anexo -->
-                            <div class="mt-2">
-                                <a href="#" id="modalAnexo" target="_blank" class="btn btn-outline-secondary btn-sm w-100">
-                                    <i class='bx bxs-file-pdf'></i> Visualizar Certificado (Anexo)
-                                </a>
-                            </div>
-                        </div>
+        <div class="mt-2">
+            <a href="#" id="modalAnexo" target="_blank" class="btn btn-outline-secondary w-100 py-2">
+                <i class='bx bxs-file-pdf'></i> Visualizar Certificado (Anexo)
+            </a>
+        </div>
+    </div>
 
-                        <!-- Validação e Limites -->
-                        <div class="col-md-5">
-                            <div class="card bg-light border-0 h-100">
-                                <div class="card-body">
-                                    <h6 class="fw-bold text-primary mb-3 text-uppercase small ls-1">Verificação de Limites</h6>
-                                    
-                                    <p class="small text-muted mb-2">Progresso do aluno neste tipo de Atividade:</p>
-
-                                    <div class="progress mb-2" style="height: 10px;">
-                                        <div id="barraProgresso" class="progress-bar bg-success" role="progressbar" style="width: 0%;"></div>
-                                    </div>
-                                    
-                                    <div class="d-flex justify-content-between small fw-bold mb-4">
-                                        <span id="lblAcumulado">Acumulado: 0h</span>
-                                        <span id="lblLimite" class="text-danger">Limite: --</span>
-                                    </div>
-
-                                    <div class="alert alert-warning small border-0 d-flex gap-2">
-                                        <i class='bx bx-info-circle fs-4'></i>
-                                        <div>
-                                            <strong>Atenção:</strong> Verifique a veracidade do documento antes de deferir.
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="my-4 opacity-10">
-
-                    <!-- Área de Decisão -->
+</div>
+    <hr class="my-4 opacity-10">
                     <div>
                         <h6 class="fw-bold text-dark mb-2">Parecer da Coordenação</h6>
                         <textarea class="form-control mb-3" id="modalObservacao" rows="2" placeholder="Digite uma justificativa (obrigatório em caso de indeferimento)..."></textarea>

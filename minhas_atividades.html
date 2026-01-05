@@ -212,57 +212,49 @@
     <script src="js/auth.js"></script>
     <script src="js/aluno.js"></script>
     <script>
-        // CONFIGURAÇÕES DA PAGINAÇÃO
         let listaAtual = [];
         let paginaAtual = 1;
-        const itensPorPagina = 5; // Quantas atividades aparecem por vez
+        const itensPorPagina = 5; 
 
         document.addEventListener("DOMContentLoaded", async function() {
             setTimeout(() => document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end')), 100);
             if (typeof verificarAutenticacao === 'function') verificarAutenticacao();
 
             if (typeof carregarDashboardAluno === 'function') {
-                await carregarDashboardAluno(); // Espera carregar do servidor
+                await carregarDashboardAluno(); 
                 
-                listaAtual = [...cacheSolicitacoesAluno];
-                
-                listaAtual.sort((a, b) => new Date(b.dataSolicitacao || 0) - new Date(a.dataSolicitacao || 0));
-
-                // Renderiza a primeira página
-                renderizarTabela();
+                if(typeof cacheSolicitacoesAluno !== 'undefined') {
+                    listaAtual = [...cacheSolicitacoesAluno];
+                    listaAtual.sort((a, b) => new Date(b.dataSolicitacao || 0) - new Date(a.dataSolicitacao || 0));
+                    renderizarTabela();
+                }
             }
         });
 
-        // --- FUNÇÃO DE FILTRO ---
         function aplicarFiltros() {
             const texto = document.getElementById('filtroTexto').value.toLowerCase();
-            const status = document.getElementById('filtroStatus').value; // DEFERIDO, PENDENTE, etc
+            const status = document.getElementById('filtroStatus').value;
             const ano = document.getElementById('filtroAno').value;
 
-            // Filtra a lista global (cacheSolicitacoesAluno vem do api.js)
             listaAtual = cacheSolicitacoesAluno.filter(item => {
-                const titulo = (item.observacao || '').toLowerCase();
-                const tipo = (item.subtipoAtividade || '').toLowerCase();
-                const dataItem = item.dataSolicitacao || item.dataInicio || "";
+                const titulo = (item.nomeAtividade || item.observacao || '').toLowerCase();
+                const tipo = (item.nomeSubtipo || item.subtipoAtividade || '').toLowerCase();
+                const dataItem = item.dataSolicitacao || "";
                 
-                // Verifica Texto
                 const matchTexto = titulo.includes(texto) || tipo.includes(texto);
-                
-                // Verifica Status
-                const matchStatus = status === "" || item.status === status;
 
-                // Verifica Ano (procura 2024 na string de data "2024-05-10")
+                let statusItem = item.status ? item.status.toUpperCase() : '';
+                const matchStatus = status === "" || statusItem.includes(status);
+
                 const matchAno = ano === "" || dataItem.startsWith(ano);
 
                 return matchTexto && matchStatus && matchAno;
             });
 
-            // Volta para a página 1 sempre que filtrar
             paginaAtual = 1;
             renderizarTabela();
         }
 
-        // --- FUNÇÃO QUE DESENHA A TABELA E A PAGINAÇÃO ---
         function renderizarTabela() {
             const tbody = document.getElementById('tabelaCorpo');
             tbody.innerHTML = "";
@@ -273,7 +265,6 @@
                 return;
             }
 
-            // Lógica de corte (Slice) para paginação
             const inicio = (paginaAtual - 1) * itensPorPagina;
             const fim = inicio + itensPorPagina;
             const itensDaPagina = listaAtual.slice(inicio, fim);
@@ -282,28 +273,38 @@
                 let badgeClass = 'bg-secondary';
                 let btnJustificativa = '';
 
-                if (item.status === 'DEFERIDO' || item.status === 'APROVADO') badgeClass = 'bg-success';
-                else if (item.status === 'PENDENTE') badgeClass = 'bg-warning text-dark';
-                else if (item.status === 'INDEFERIDO' || item.status === 'REJEITADO') {
+                const statusStr = item.status ? item.status.toUpperCase() : 'DESCONHECIDO';
+
+                if (statusStr === 'DEFERIDO' || statusStr === 'DEFERIDA' || statusStr === 'APROVADO') badgeClass = 'bg-success';
+                else if (statusStr === 'PENDENTE') badgeClass = 'bg-warning text-dark';
+                else if (statusStr === 'INDEFERIDO' || statusStr === 'INDEFERIDA' || statusStr === 'REJEITADO') {
                     badgeClass = 'bg-danger';
                     btnJustificativa = `
                         <button class="btn btn-sm btn-outline-danger me-1"
-                                onclick="mostrarJustificativa('${item.observacaoResponsavel || 'Sem detalhes.'}')"
+                                onclick="mostrarJustificativa(${item.id})"
                                 title="Ver Motivo">
                             <i class='bx bx-message-rounded-dots'></i>
                         </button>`;
                 }
 
+                const nomeSubtipo = item.nomeSubtipo || item.subtipoAtividade || 'Atividade';
+                const tituloPrincipal = item.nomeAtividade 
+                                      ? `${item.nomeAtividade} ${item.participacao ? '(' + item.participacao + ')' : ''}`
+                                      : (item.observacao || item.observacaoDiscente || '---');
+                
+                const cargaHoraria = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;
+                const dataFormatada = item.dataSolicitacao ? new Date(item.dataSolicitacao).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : '-';
+
                 const linha = `
                     <tr>
                         <td class="ps-4 fw-semibold">
-                            <div class="text-truncate" style="max-width: 250px;" title="${item.observacao}">
-                                ${item.observacao || item.subtipoAtividade}
+                            <div class="text-truncate" style="max-width: 250px;" title="${tituloPrincipal}">
+                                ${tituloPrincipal}
                             </div>
-                            <div class="small text-muted">${item.subtipoAtividade}</div>
+                            <div class="small text-muted">${nomeSubtipo}</div>
                         </td>
-                        <td>${item.cargaHorariaTotal}h</td>
-                        <td>${item.dataSolicitacao ? new Date(item.dataSolicitacao).toLocaleDateString('pt-BR') : '-'}</td>
+                        <td>${cargaHoraria}h</td>
+                        <td>${dataFormatada}</td>
                         <td><span class="badge ${badgeClass} rounded-pill px-3">${item.status}</span></td>
                         <td class="pe-4 text-end">
                             ${btnJustificativa}
@@ -320,23 +321,34 @@
             atualizarPaginacaoUI(Math.ceil(listaAtual.length / itensPorPagina));
         }
 
-        // --- DESENHA OS BOTÕES DE PAGINAÇÃO (1, 2, Próximo...) ---
+        function mostrarJustificativa(id) {
+            const item = listaAtual.find(s => s.id === id);
+            
+            if (item) {
+                const justificativa = item.observacaoResponsavel || "Nenhuma justificativa informada pela coordenação.";
+                
+                const modalBody = document.querySelector('#modalJustificativa .modal-body .alert');
+                if (modalBody) {
+                    modalBody.innerText = justificativa;
+                }
+
+                const modalEl = document.getElementById('modalJustificativa');
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
+        }
+
         function atualizarPaginacaoUI(totalPaginas) {
             const container = document.getElementById('paginacaoContainer');
             container.innerHTML = "";
+            if (totalPaginas <= 1) return;
 
-            if (totalPaginas <= 1) return; // Não mostra paginação se só tiver 1 página
-
-            // Botão Anterior
             const prevDisabled = paginaAtual === 1 ? 'disabled' : '';
             container.innerHTML += `
                 <li class="page-item ${prevDisabled}">
-                    <a class="page-link border-0" href="#" onclick="mudarPagina(${paginaAtual - 1})" tabindex="-1">
-                        <i class='bx bx-chevron-left'></i> Anterior
-                    </a>
+                    <a class="page-link border-0" href="#" onclick="mudarPagina(${paginaAtual - 1})" tabindex="-1"><i class='bx bx-chevron-left'></i> Anterior</a>
                 </li>`;
 
-            // Números
             for (let i = 1; i <= totalPaginas; i++) {
                 const active = i === paginaAtual ? 'active' : '';
                 container.innerHTML += `
@@ -345,13 +357,10 @@
                     </li>`;
             }
 
-            // Botão Próximo
             const nextDisabled = paginaAtual === totalPaginas ? 'disabled' : '';
             container.innerHTML += `
                 <li class="page-item ${nextDisabled}">
-                    <a class="page-link border-0" href="#" onclick="mudarPagina(${paginaAtual + 1})">
-                        Próximo <i class='bx bx-chevron-right'></i>
-                    </a>
+                    <a class="page-link border-0" href="#" onclick="mudarPagina(${paginaAtual + 1})">Próximo <i class='bx bx-chevron-right'></i></a>
                 </li>`;
         }
 

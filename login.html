@@ -24,7 +24,6 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
 
-                <!-- Card de Login -->
                 <div class="card card-glass border-0 p-4 anime-start" style="transition-delay: 0.1s;">
                     <div class="card-body">
                         
@@ -99,7 +98,6 @@
                 });
             }, 100);
 
-            // Toggle de Senha (Mostrar/Esconder)
             const togglePassword = document.querySelector('#togglePassword');
             const password = document.querySelector('#senha');
             const icon = togglePassword.querySelector('i');
@@ -108,7 +106,6 @@
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
                 
-                // Troca o ícone
                 icon.classList.toggle('bx-show');
                 icon.classList.toggle('bx-hide');
             });

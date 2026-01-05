@@ -14,8 +14,8 @@
 body {
     display: block !important;
     font-family: "Montserrat", Arial, sans-serif;
-    background-color: #f8f9fa; /* Cor de fundo caso a imagem falhe */
-    overflow-x: hidden; /* Evita rolagem horizontal acidental */
+    background-color: #f8f9fa;
+    overflow-x: hidden; 
     min-height: 100vh;
 }
 
@@ -43,7 +43,38 @@ body {
             font-weight: bold;
             line-height: 25px;
         }
-        /* Efeito hover na linha da tabela */
         .table-hover tbody tr:hover {
             background-color: rgba(13, 110, 253, 0.02);
         }
+
+@media print {
+    .navbar,               
+    .btn,                  
+    .no-print,              
+    footer,               
+    .card-footer {      
+        display: none !important;
+    }
+
+    .card, .bg-light, body {
+        box-shadow: none !important;
+        background-color: white !important;
+        border: none !important;
+    }
+
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    body {
+        color: black !important;
+    }
+
+    .anime-start {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

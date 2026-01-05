@@ -69,7 +69,6 @@
 
         <div class="row g-4 anime-start" style="transition-delay: 0.2s;">
             
-            <!-- Resumo com Card Fixo -->
             <div class="col-lg-4">
                 <div class="card border-0 shadow-sm text-center p-4 h-100">
                     <div class="card-body">
@@ -79,15 +78,9 @@
                                 style="width: 120px; height: 120px; user-select: none;">
                                 <span id="avatarTexto">...</span>
                             </div>
-                            <!-- Botão de alterar foto (não fiz ainda)
-                            <button class="btn btn-sm btn-light border position-absolute bottom-0 end-0 rounded-circle shadow-sm" title="Alterar Foto">
-                                <i class='bx bx-camera'></i>
-                            </button> -->
                         </div>
 
-                        <!-- ID: cardNome -->
                         <h5 class="fw-bold mb-1" id="cardNome">Carregando...</h5>
-                        <!-- ID: cardCurso (Se disponível no back) -->
                         <p class="text-muted small mb-3" id="cardCurso">Engenharia de Computação</p>
                         
                         <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill mb-4">
@@ -98,7 +91,6 @@
 
                         <div class="d-flex justify-content-between text-start small mb-2">
                             <span class="text-muted">Matrícula:</span>
-                            <!-- ID: cardMatricula -->
                             <span class="fw-bold" id="cardMatricula">...</span>
                         </div>
                         <div class="d-flex justify-content-between text-start small mb-2">
@@ -113,34 +105,28 @@
                 </div>
             </div>
 
-            <!-- Coluna Direita: Dados Editáveis -->
             <div class="col-lg-8">
                 
-                <!-- Card de Dados Pessoais -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
                         <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-id-card'></i> Dados Pessoais</h5>
                         
-                        <!-- BOTÃO EDITAR CONECTADO AO JS -->
                         <button id="btnEditarPerfil" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="habilitarEdicaoPerfil()">
                             <i class='bx bx-edit-alt'></i> Editar
                         </button>
                     </div>
                     <div class="card-body p-4">
-                        <form onsubmit="return false;"> <!-- Evita reload se der enter -->
+                        <form onsubmit="return false;">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold text-muted">Nome Completo</label>
-                                    <!-- ID: inputNome -->
                                     <input type="text" class="form-control" id="inputNome" value="..." disabled>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold text-muted">Telefone / WhatsApp</label>
-                                    <!-- ID: inputTelefone -->
                                     <input type="tel" class="form-control" id="inputTelefone" value="..." disabled>
                                 </div><div class="col-md-12">
                                     <label class="form-label small fw-bold text-muted">E-mail</label>
-                                    <!-- ID: inputEmail -->
                                     <input type="email" class="form-control" id="inputEmail" value="..." disabled>
                                 </div>
                                 
@@ -149,7 +135,6 @@
                     </div>
                 </div>
 
-                <!-- Card de Segurança -->
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white py-3 border-bottom">
                         <h5 class="mb-0 fw-bold text-primary"><i class='bx bx-shield-quarter'></i> Segurança</h5>
@@ -221,12 +206,10 @@
                 });
             }, 100); 
 
-            // 1. Verifica segurança
             if (typeof verificarAutenticacao === 'function') {
                 verificarAutenticacao();
             }
 
-            // 2. Carrega os dados do aluno
             if (typeof carregarPerfil === 'function') {
                 carregarPerfil();
             }

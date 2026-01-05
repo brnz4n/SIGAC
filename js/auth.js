@@ -8,11 +8,16 @@ async function login(event) {
     btn.innerText = "Autenticando...";
     btn.disabled = true;
 
+    const payload = {
+        email: loginInput,
+        senha: senhaInput
+    };
+
     try {
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: loginInput, senha: senhaInput })
+            body: JSON.stringify(payload)
         });
 
         if (response.ok) {
@@ -22,14 +27,26 @@ async function login(event) {
             if (data.perfil === 'DISCENTE') {
                 await buscarDadosDiscente(data.identificador, data.token);
             } else if (data.perfil === 'COORDENADOR') {
-                localStorage.setItem('usuario', JSON.stringify({ nome: "Prof. Fernando", perfil: "COORDENADOR" }));
+                localStorage.setItem('usuario', JSON.stringify({ 
+                    nome: data.nome || "Coordenador", 
+                    email: data.email || loginInput,
+                    perfil: "COORDENADOR" 
+                }));
                 window.location.href = 'dashboard_coordenador.html';
             } else if (data.perfil === 'ADMIN') {
-                localStorage.setItem('usuario', JSON.stringify({ nome: "Admin", perfil: "ADMIN" }));
+                localStorage.setItem('usuario', JSON.stringify({ 
+                    nome: data.nome || "Administrador", 
+                    perfil: "ADMIN" 
+                }));
                 window.location.href = 'dashboard_adm.html';
             }
         } else {
-            alert("Login inválido! Verifique email e senha.");
+            try {
+                const erroData = await response.json();
+                alert("Erro: " + (erroData.message || "Login inválido!"));
+            } catch {
+                alert("Login inválido! Verifique email e senha.");
+            }
         }
     } catch (error) {
         console.error("Erro:", error);
@@ -57,7 +74,6 @@ async function buscarDadosDiscente(matricula, token) {
     }
 }
 
-/*CADASTRO */
 async function cadastrar(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
