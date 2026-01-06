@@ -64,9 +64,9 @@ function preencherTabelaAtividades(lista) {
         let badgeClass = 'bg-secondary';
         const status = item.status ? item.status.toUpperCase() : 'DESCONHECIDO';
 
-        if (status === 'DEFERIDO' || status === 'APROVADO') badgeClass = 'bg-success';
-        else if (status === 'PENDENTE') badgeClass = 'bg-warning text-dark';
-        else if (status === 'INDEFERIDO' || status === 'REJEITADO') badgeClass = 'bg-danger';
+        if (status === 'DEFERIDO' || status === 'APROVADO' || status === 'DEFERIDA') badgeClass = 'bg-success';
+        else if (status === 'PENDENTE' || status === 'EM ANÁLISE') badgeClass = 'bg-warning text-dark';
+        else if (status === 'INDEFERIDO' || status === 'REJEITADO' || status === 'REJEITADA' || status === 'INDEFERIDA') badgeClass = 'bg-danger';
 
         const nomeSubtipo = item.nomeSubtipo || item.subtipoAtividade || 'Atividade';
         const cargaHoraria = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;

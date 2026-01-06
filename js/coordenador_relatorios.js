@@ -55,23 +55,44 @@ function processarAluno(aluno) {
 
 function atualizarGraficos(dados) {
     const total = dados.solicitacoes.length;
+
+    const elDeferida = document.getElementById('circleDeferida');
+    const elIndeferida = document.getElementById('circleIndeferida');
+    const elPendente = document.getElementById('circlePendente');
+    const elTotalTexto = document.querySelector('h4.fw-bold.mb-0');
+
     if (total > 0) {
         const deferidas = dados.solicitacoes.filter(s => s.status === 'DEFERIDA' || s.status === 'DEFERIDO').length;
         const indeferidas = dados.solicitacoes.filter(s => s.status === 'INDEFERIDA' || s.status === 'INDEFERIDO').length;
         const pendentes = dados.solicitacoes.filter(s => s.status === 'PENDENTE').length;
 
-        document.querySelector('h4.fw-bold.mb-0').innerText = total;
+        if(elTotalTexto) elTotalTexto.innerText = total;
 
-        const pDef = Math.round((deferidas / total) * 100);
-        const pInd = Math.round((indeferidas / total) * 100);
-        const pPen = Math.round((pendentes / total) * 100);
+        const pctDef = (deferidas / total) * 100;
+        const pctInd = (indeferidas / total) * 100;
+        const pctPen = (pendentes / total) * 100;
 
         const spans = document.querySelectorAll('.flex-grow-1 .fw-bold');
         if(spans.length >= 3) {
-            spans[0].innerText = `${pDef}%`; 
-            spans[1].innerText = `${pInd}%`; 
-            spans[2].innerText = `${pPen}%`; 
+            spans[0].innerText = `${Math.round(pctDef)}%`;
+            spans[1].innerText = `${Math.round(pctInd)}%`;
+            spans[2].innerText = `${Math.round(pctPen)}%`;
         }
+
+        elDeferida.style.strokeDasharray = `${pctDef} 100`;
+        elDeferida.style.strokeDashoffset = "25";
+
+        elIndeferida.style.strokeDasharray = `${pctInd} 100`;
+        elIndeferida.style.strokeDashoffset = `${25 - pctDef}`;
+
+        elPendente.style.strokeDasharray = `${pctPen} 100`;
+        elPendente.style.strokeDashoffset = `${25 - pctDef - pctInd}`;
+
+    } else {
+        if(elTotalTexto) elTotalTexto.innerText = "0";
+        elDeferida.style.strokeDasharray = "0 100";
+        elIndeferida.style.strokeDasharray = "0 100";
+        elPendente.style.strokeDasharray = "0 100";
     }
 
     let horasEnsino = 0;
@@ -80,20 +101,37 @@ function atualizarGraficos(dados) {
 
     dados.solicitacoes.forEach(s => {
         if (s.status === 'DEFERIDA' || s.status === 'DEFERIDO') {
-            const h = s.cargaHorariaAproveitada || s.cargaHorariaSolicitada || 0;
-            const nome = (s.nomeAtividade || "").toUpperCase();
+            const h = parseFloat(s.cargaHorariaAproveitada || s.cargaHorariaSolicitada || 0);
 
-            if (nome.includes("MONITORIA") || nome.includes("ENSINO") || nome.includes("CURSO")) horasEnsino += h;
-            else if (nome.includes("PESQUISA") || nome.includes("ARTIGO") || nome.includes("INICIAÇÃO")) horasPesquisa += h;
-            else horasExtensao += h;
+            const nome = (s.nomeAtividade || "").toUpperCase();
+            const subtipo = (s.nomeSubtipo || "").toUpperCase(); 
+
+            if (subtipo.includes("MONITORIA") || subtipo.includes("CURSO") || nome.includes("ENSINO")) {
+                horasEnsino += h;
+            } else if (subtipo.includes("INICIAÇÃO") || subtipo.includes("PESQUISA") || subtipo.includes("ARTIGO")) {
+                horasPesquisa += h;
+            } else {
+                horasExtensao += h;
+            }
         }
     });
 
-    const maiorValor = Math.max(horasEnsino, horasPesquisa, horasExtensao) || 1;
+    const maiorValor = Math.max(horasEnsino, horasPesquisa, horasExtensao, 10); 
 
-    atualizarBarraGrupo(0, horasEnsino, maiorValor);
-    atualizarBarraGrupo(1, horasPesquisa, maiorValor);
-    atualizarBarraGrupo(2, horasExtensao, maiorValor);
+    if(document.getElementById('txtEnsino')) {
+        document.getElementById('txtEnsino').innerText = `${horasEnsino}h`;
+        document.getElementById('barEnsino').style.width = `${(horasEnsino / maiorValor) * 100}%`;
+    }
+
+    if(document.getElementById('txtPesquisa')) {
+        document.getElementById('txtPesquisa').innerText = `${horasPesquisa}h`;
+        document.getElementById('barPesquisa').style.width = `${(horasPesquisa / maiorValor) * 100}%`;
+    }
+
+    if(document.getElementById('txtExtensao')) {
+        document.getElementById('txtExtensao').innerText = `${horasExtensao}h`;
+        document.getElementById('barExtensao').style.width = `${(horasExtensao / maiorValor) * 100}%`;
+    }
 }
 
 function atualizarBarraGrupo(index, valor, maximo) {

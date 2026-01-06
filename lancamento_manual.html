@@ -189,7 +189,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="api.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/lancamento_manual.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -200,31 +202,6 @@
             }
         });
 
-        function atualizarTipos() {
-            const grupo = document.getElementById('grupoAtividade').value;
-            const tipoSelect = document.getElementById('tipoAtividade');
-            const subtipoSelect = document.getElementById('subtipoAtividade');
-            
-            tipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
-            subtipoSelect.innerHTML = '<option value="" selected disabled>--</option>';
-            subtipoSelect.disabled = true;
-            tipoSelect.disabled = false;
-
-            if (grupo === 'ENSINO') {
-                tipoSelect.innerHTML += `<option value="MONITORIA">Monitoria</option>`;
-            } else if (grupo === 'PESQUISA') {
-                tipoSelect.innerHTML += `<option value="INICIACAO_CIENTIFICA">Iniciação Científica</option>`;
-            } else if (grupo === 'EXTENSAO') {
-                tipoSelect.innerHTML += `<option value="EVENTO">Evento</option>`;
-            }
-        }
-
-        function atualizarSubtipos() {
-            const subtipoSelect = document.getElementById('subtipoAtividade');
-            subtipoSelect.innerHTML = '<option value="" selected disabled>Selecione...</option>';
-            subtipoSelect.disabled = false;
-            subtipoSelect.innerHTML += `<option value="1">Geral</option><option value="2">Voluntário</option>`;
-        }
     </script>
 </body>
 </html>
