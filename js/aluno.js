@@ -94,9 +94,9 @@ function verDetalhesSolicitacao(id) {
 
     const nomeSubtipo = item.nomeSubtipo || item.subtipoAtividade || 'Não informado';
 
-    const textoObservacao = item.nomeAtividade 
-                          ? `${item.nomeAtividade} - ${item.participacao || ''}`
-                          : (item.observacaoDiscente || item.observacao || '---');
+    const textoObservacao = item.nomeAtividade
+                    ? `${item.nomeAtividade} - ${item.participacao || ''}`
+                    : (item.observacaoDiscente || item.observacao || '---');
 
     const dataRef = item.dataSolicitacao ? formatarData(item.dataSolicitacao) : '-';
     const textoHoras = item.cargaHorariaSolicitada || item.cargaHorariaTotal || 0;

@@ -27,16 +27,16 @@ async function login(event) {
             if (data.perfil === 'DISCENTE') {
                 await buscarDadosDiscente(data.identificador, data.token);
             } else if (data.perfil === 'COORDENADOR') {
-                localStorage.setItem('usuario', JSON.stringify({ 
-                    nome: data.nome || "Coordenador", 
+                localStorage.setItem('usuario', JSON.stringify({
+                    nome: data.nome || "Coordenador",
                     email: data.email || loginInput,
-                    perfil: "COORDENADOR" 
+                    perfil: "COORDENADOR"
                 }));
                 window.location.href = 'dashboard_coordenador.html';
             } else if (data.perfil === 'ADMIN') {
-                localStorage.setItem('usuario', JSON.stringify({ 
-                    nome: data.nome || "Administrador", 
-                    perfil: "ADMIN" 
+                localStorage.setItem('usuario', JSON.stringify({
+                    nome: data.nome || "Administrador",
+                    perfil: "ADMIN"
                 }));
                 window.location.href = 'dashboard_adm.html';
             }
@@ -89,6 +89,7 @@ async function cadastrar(event) {
         nome: data.nome,
         email: data.email,
         senha: data.senha,
+        telefone: data.telefone,
         idCurso: 1,
         horasCumpridas: 0,
         ingressao: new Date().toISOString().split('T')[0]
@@ -105,7 +106,18 @@ async function cadastrar(event) {
             alert("Cadastro realizado! Faça login.");
             window.location.href = "index.html";
         } else {
-            alert("Erro no cadastro. Verifique os dados.");
+            const textoErro = await response.text();
+            try {
+                const jsonErro = JSON.parse(textoErro);
+                if (jsonErro.errors) {
+                    const mensagens = jsonErro.errors.map(e => e.defaultMessage).join("\n");
+                    alert("Erro de validação:\n" + mensagens);
+                } else {
+                    alert("Erro: " + (jsonErro.message || textoErro));
+                }
+            } catch (e) {
+                alert("Erro no cadastro: " + textoErro);
+            }
         }
     } catch (error) {
         console.error(error);

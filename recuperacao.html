@@ -17,7 +17,7 @@
 
     <div class="container-fluid px-5">
         <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2 anime-start" href="index.html">
-            <img src="imagens/logo_sigac.png" alt="logo_sigac" height="70"></i>
+            <img src="imagens/logo_sigac.png" alt="logo_sigac" height="70">
         </a>
     </div>
     
@@ -30,29 +30,57 @@
                         
                         <div class="text-center mb-4">
                             <h3 class="fw-bold text-primary">Recuperar Senha</h3>
-                            <p class="text-muted small">Insira seu e-mail ou matrícula cadastrada para receber as instruções.</p>
+                            <p class="text-muted small" id="instrucaoTexto">Insira seu e-mail para receber o token de segurança.</p>
                         </div>
 
-                        <form onsubmit="recuperarSenha(event)">
-                            
+                        <form id="formFase1" onsubmit="solicitarTokenReset(event)">
                             <div class="mb-4">
-                                <label for="matricula" class="form-label small fw-bold text-secondary ps-1">E-mail ou Matrícula</label>
+                                <label for="emailReset" class="form-label small fw-bold text-secondary ps-1">E-mail Cadastrado</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-envelope'></i></span>
-                                    <input type="text" class="form-control border-start-0 ps-0" id="matricula" name="matricula" placeholder="Digite aqui..." required>
+                                    <input type="email" class="form-control border-start-0 ps-0" id="emailReset" placeholder="exemplo@ufc.br" required>
                                 </div>
                             </div>
 
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold shadow-sm hover-scale">
-                                    ENVIAR CÓDIGO
+                                    GERAR TOKEN
                                 </button>
-                                <a href="login.html" class="btn btn-outline-secondary rounded-pill py-2 fw-bold border-0">
+                                <a href="index.html" class="btn btn-outline-secondary rounded-pill py-2 fw-bold border-0">
                                     Voltar ao Login
                                 </a>
                             </div>
+                        </form>
 
-                        </form> 
+                        <form id="formFase2" class="d-none" onsubmit="confirmarTrocaSenha(event)">
+                            
+                            <div class="alert alert-info small">
+                                <i class='bx bx-check-circle'></i> Token gerado! Verifique o console ou o alerta e cole abaixo.
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-secondary ps-1">Token de Segurança</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-key'></i></span>
+                                    <input type="text" class="form-control border-start-0 ps-0" id="tokenReset" placeholder="Cole o token aqui..." required>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-secondary ps-1">Nova Senha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-primary"><i class='bx bx-lock-alt'></i></span>
+                                    <input type="password" class="form-control border-start-0 ps-0" id="novaSenhaReset" placeholder="Mínimo 8 caracteres" required>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success rounded-pill py-2 fw-bold shadow-sm hover-scale">
+                                    ALTERAR SENHA
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 
@@ -65,17 +93,94 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="api.js"></script>
-
+    <script src="js/config.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {
-                var elementos = document.querySelectorAll('.anime-start');
-                elementos.forEach(function(elemento) {
-                    elemento.classList.add('anime-end');
-                });
+                document.querySelectorAll('.anime-start').forEach(el => el.classList.add('anime-end'));
             }, 100);
         });
+
+
+        async function solicitarTokenReset(event) {
+            event.preventDefault();
+            const email = document.getElementById('emailReset').value;
+            const btn = document.querySelector('#formFase1 button');
+            
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = "Enviando...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/reset-password/request`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: email })
+                });
+
+                if (response.ok) {
+                    const tokenGerado = await response.text();
+                    console.log("TOKEN:", tokenGerado);
+                    alert("✅ Token gerado!\n\nCopie este código:\n" + tokenGerado);
+
+                    document.getElementById('formFase1').classList.add('d-none');
+                    document.getElementById('formFase2').classList.remove('d-none');
+                    document.getElementById('instrucaoTexto').innerText = "Defina sua nova senha abaixo.";
+                    
+                    document.getElementById('tokenReset').value = tokenGerado;
+
+                } else {
+                    alert("❌ E-mail não encontrado!");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Erro de conexão.");
+            } finally {
+                btn.innerHTML = textoOriginal;
+                btn.disabled = false;
+            }
+        }
+
+        async function confirmarTrocaSenha(event) {
+            event.preventDefault();
+            const token = document.getElementById('tokenReset').value;
+            const novaSenha = document.getElementById('novaSenhaReset').value;
+            const btn = document.querySelector('#formFase2 button');
+
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = "Alterando...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/reset-password/confirm`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        token: token,
+                        novaSenha: novaSenha
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert("🎉 " + (data.mensagem || "Senha alterada com sucesso!"));
+                    window.location.href = "index.html";
+                } else {
+                    try {
+                        const erro = await response.json();
+                        alert("⚠️ Erro: " + (erro.message || "Token inválido."));
+                    } catch {
+                        alert("Erro ao alterar senha.");
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Erro de conexão.");
+            } finally {
+                btn.innerHTML = textoOriginal;
+                btn.disabled = false;
+            }
+        }
     </script>
 </body>
 </html>
