@@ -38,7 +38,7 @@ async function login(event) {
                     nome: data.nome || "Administrador",
                     perfil: "ADMIN"
                 }));
-                window.location.href = 'dashboard_adm.html';
+                window.location.href = 'dashboard_admin.html';
             }
         } else {
             try {
