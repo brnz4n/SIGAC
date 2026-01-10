@@ -57,7 +57,7 @@ Como o sistema é dividido em duas partes, você precisa rodar o **Back-end** pr
     ```
 
 ### 2️⃣ Passo 2: Executar o Back-end (API)
-O Front-end precisa que a API esteja online para funcionar.
+O Front-end precisa que a API (desenvolvida por **[@fcolucasvieira](https://github.com/fcolucasvieira)**) esteja online para funcionar.
 
 1.  Clone o repositório da API:
     ```bash
@@ -106,6 +106,13 @@ O sistema já vem com usuários pré-configurados para facilitar o teste:
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-Desenvolvido por **[brnz4n](https://github.com/brnz4n)**.
+Este projeto foi desenvolvido em colaboração:
+
+| Desenvolvedor | Papel | GitHub |
+| :--- | :--- | :--- |
+| **Breno Magalhães** | **Front-end** (Interface e Integração) | [@brnz4n](https://github.com/brnz4n) |
+| **Lucas Vieira** | **Back-end** (API, Banco de Dados e Regras) | [@fcolucasvieira](https://github.com/fcolucasvieira) |
+
+---
