@@ -14,11 +14,11 @@
 ### 🔐 Login e Segurança
 Acesso seguro com autenticação via Token JWT.
 ![Tela de Login](imagens/login.png)
+![Token para alteração/recuperação de senha](imagens/recuperar_senha.png)
 
 ### 👨‍🎓 Painel do Aluno
 O aluno acompanha seu progresso gráfico, envia certificados (PDF/IMG) e visualiza o status.
 ![Dashboard do Aluno](imagens/aluno_dashboard.png)
-![Token para alteração/recuperação de senha](imagens/recuperar_senha.png)
 
 ### 👩‍🏫 Painel do Coordenador
 Área para deferimento/indeferimento de horas, com visualização de comprovantes e justificativas.
