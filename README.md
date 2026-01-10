@@ -92,8 +92,8 @@ O sistema já vem com usuários pré-configurados para facilitar o teste:
 
 | Perfil | E-mail | Senha | Descrição |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin@ufc.com` | `123456` | Acesso total ao sistema e gestão de usuários. |
-| **Coordenador** | `coord@ufc.br` | `123456` | Valida atividades e visualiza relatórios. |
+| **Admin** | `admin@ufc.com` | `Ufcadmin@sigac0` | Acesso total ao sistema e gestão de usuários. |
+| **Coordenador** | `coord@ufc.br` | `Coord011@` | Valida atividades e visualiza relatórios. |
 | **Aluno** | *(Criar no Cadastro)* | *(Sua escolha)* | Envia atividades e consulta horas. |
 
 ---
